@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+
+# Environment variables
+.env
+
+# Output directory
+output/
+
+# Logs
+*.log
+
+# Virtual environment
+venv/
+
+# IDE files
+.idea/
+

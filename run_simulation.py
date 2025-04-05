@@ -1,0 +1,74 @@
+import argparse
+from fishing_sim.config import SimulationConfig
+from fishing_sim.simulation import FishingSimulation
+
+def main():
+    parser = argparse.ArgumentParser(description='Run the Fishing Community Simulation')
+    
+    # Basic simulation parameters
+    parser.add_argument('--num-fishermen', type=int, default=5, help='Number of fishermen')
+    parser.add_argument('--initial-fish', type=int, default=100, help='Initial number of fish')
+    parser.add_argument('--collapse-threshold', type=int, default=5, help='Collapse threshold')
+    parser.add_argument('--num-months', type=int, default=12, help='Number of months per run')
+    parser.add_argument('--num-runs', type=int, default=5, help='Number of runs')
+    
+    # Memory settings
+    parser.add_argument('--personal-memory-size', type=int, default=5, help='Number of personal memories to retrieve')
+    parser.add_argument('--social-memory-size', type=int, default=2, help='Number of social norms to retrieve')
+    
+    # Inheritance settings
+    parser.add_argument('--enable-inheritance', action='store_true', help='Enable memory inheritance between runs')
+    parser.add_argument('--inheritance-rate', type=float, default=0.7, help='Rate of memory inheritance')
+    
+    # Social memory settings
+    parser.add_argument('--disable-social-memory', action='store_true', help='Disable social memory')
+    
+    # LLM settings
+    parser.add_argument('--llm-type', type=str, choices=['google', 'azure', 'ollama'], default='google',
+                      help='Type of LLM to use (google, azure, or ollama)')
+    parser.add_argument('--model-name', type=str, help='Model name to use (optional, defaults to provider-specific default)')
+    parser.add_argument('--temperature', type=float, default=0.7, help='LLM temperature')
+    
+    # Logging settings
+    parser.add_argument('--log-dir', type=str, default='logs', help='Directory for log files')
+    parser.add_argument('--quiet', action='store_true', help='Disable verbose output')
+    
+    args = parser.parse_args()
+    
+    # Create configuration
+    config = SimulationConfig(
+        num_fishermen=args.num_fishermen,
+        initial_fish=args.initial_fish,
+        collapse_threshold=args.collapse_threshold,
+        num_months=args.num_months,
+        num_runs=args.num_runs,
+        personal_memory_size=args.personal_memory_size,
+        social_memory_size=args.social_memory_size,
+        enable_inheritance=args.enable_inheritance,
+        inheritance_rate=args.inheritance_rate,
+        enable_social_memory=not args.disable_social_memory,
+        log_dir=args.log_dir,
+        verbose=not args.quiet
+    )
+    
+    # Run simulation with LLM configuration
+    simulation = FishingSimulation(
+        config,
+        llm_type=args.llm_type,
+        model_name=args.model_name,
+        temperature=args.temperature
+    )
+    simulation.run_simulation()
+    simulation.save_logs()
+    
+    # Print summary
+    summary = simulation.get_summary()
+    print("\nSimulation Summary:")
+    print(f"Total runs: {summary['total_runs']}")
+    print(f"Average fish remaining: {summary['average_fish_remaining']:.2f}")
+    print(f"Average total caught: {summary['average_total_caught']:.2f}")
+    print(f"Number of collapses: {summary['collapses']}")
+    print(f"Average monthly catch: {summary['average_monthly_catch']:.2f}")
+
+if __name__ == "__main__":
+    main() 
