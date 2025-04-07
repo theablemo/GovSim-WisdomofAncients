@@ -4,11 +4,9 @@ from typing import List, Optional
 class SimulationConfig(BaseModel):
     """Configuration for the fishing simulation"""
     # Basic simulation parameters
-    num_fishermen: int = Field(default=3, description="Number of fishermen in the simulation")
+    num_fishermen: int = Field(default=5, description="Number of fishermen in the simulation")
     lake_capacity: int = Field(default=100, description="Maximum fish population in the lake")
-    initial_fish: int = Field(default=50, description="Initial fish population")
-    max_fish_per_fisherman: int = Field(default=20, description="Maximum fish a fisherman can catch per month")
-    reproduction_rate: float = Field(default=1.5, description="Fish reproduction rate per month")
+    reproduction_rate: float = Field(default=2.0, description="Fish reproduction rate per month (e.g., 2.0 means 100% increase)")
     num_months: int = Field(default=12, description="Number of months to run the simulation")
     collapse_threshold: int = Field(default=5, description="Minimum fish population before collapse")
     num_runs: int = Field(default=5, description="Number of simulation runs")

@@ -49,13 +49,15 @@ class SocialMemory:
     def update_recency_scores(self):
         """Update recency scores for all norms based on current month"""
         self.current_month += 1
-        all_docs = self.memory.docstore.search("")
+        # Get all documents from the FAISS store
+        all_docs = self.memory.docstore._dict.values()
         for doc in all_docs:
-            # Calculate recency score: 1.0 for current month, decreasing by 0.1 each month
-            months_old = self.current_month - doc.metadata['last_updated']
-            recency = max(0.1, 1.0 - (months_old * 0.1))
-            doc.metadata['recency'] = recency
-            doc.metadata['last_updated'] = self.current_month
+            if isinstance(doc, Document):
+                # Calculate recency score: 1.0 for current month, decreasing by 0.1 each month
+                months_old = self.current_month - doc.metadata['last_updated']
+                recency = max(0.1, 1.0 - (months_old * 0.1))
+                doc.metadata['recency'] = recency
+                doc.metadata['last_updated'] = self.current_month
         
     def retrieve_norms(self, query: str, k: int = None) -> List[Document]:
         """Retrieve relevant social norms with weighted scoring"""

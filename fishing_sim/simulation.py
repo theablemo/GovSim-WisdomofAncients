@@ -19,7 +19,7 @@ class FishingSimulation:
     def __init__(
         self, 
         config: SimulationConfig,
-        llm_type: Literal["google", "azure", "ollama"] = "google",
+        llm_type: Literal["google", "openai", "ollama"] = "google",
         model_name: str = None,
         temperature: float = 0.7
     ):
@@ -44,27 +44,26 @@ class FishingSimulation:
             
     def run_simulation(self):
         """Run the complete simulation for all runs"""
+        # Simulation for each generation
         for run in range(self.config.num_runs):
             if self.config.verbose:
                 print(f"\nStarting Run {run + 1}/{self.config.num_runs}")
                 
             # Reset simulation state
-            current_fish = self.config.initial_fish
+            current_fish = self.config.lake_capacity
             run_logs = []
             
+            # Simulation for each month
             for month in range(self.config.num_months):
                 if self.config.verbose:
                     print(f"\nMonth {month + 1}/{self.config.num_months}")
                     print(f"Fish in lake: {current_fish}")
                     
-                # Update recency scores for norms
-                self.social_memory.update_recency_scores()
-                    
                 # Decision phase
                 decisions = {}
                 for fisherman in self.fishermen:
                     decision = fisherman.make_decision(current_fish, self.social_memory)
-                    decisions[fisherman.name] = decision
+                    decisions[fisherman.name] = decision['fish_to_catch']
                     
                 # Apply decisions
                 total_caught = sum(decisions.values())
@@ -106,8 +105,9 @@ class FishingSimulation:
                         response = fisherman.discuss(context, self.social_memory)
                         conversation.append(f"{fisherman.name}: {response}")
                         
-                # Update social norms
+                # Update social norms and recency scores if social memory is enabled
                 if self.config.enable_social_memory:
+                    self.social_memory.update_recency_scores()
                     new_norm, importance = self.mayor.update_norms("\n".join(conversation), self.social_memory)
                     self.social_memory.add_norm(new_norm, importance)
                     if self.config.verbose:
@@ -118,6 +118,14 @@ class FishingSimulation:
                     reflection = fisherman.reflect("\n".join(conversation))
                     if self.config.verbose:
                         print(f"{fisherman.name}'s reflection: {reflection}")
+                
+                # Fish reproduction at the end of the month
+                current_fish = min(
+                    int(current_fish * self.config.reproduction_rate),
+                    self.config.lake_capacity
+                )
+                if self.config.verbose:
+                    print(f"Fish reproduced to {current_fish} (capacity: {self.config.lake_capacity})")
                         
             # Store run logs
             self.logs.extend(run_logs)

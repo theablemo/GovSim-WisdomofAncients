@@ -9,6 +9,7 @@ This simulation models a community of fishermen who must make decisions about ho
 - Social memory system for community norms
 - Discussion phase with a mayor agent
 - Memory inheritance between simulation runs
+- Ancient of Wisdom agent for long-term community guidance
 - Detailed logging and analysis capabilities
 
 ## Requirements
@@ -31,9 +32,14 @@ This simulation models a community of fishermen who must make decisions about ho
 
 ## Usage
 
-Run the simulation with default parameters:
+Run the simulation with default parameters (includes Ancient of Wisdom):
 ```bash
 python run_simulation.py
+```
+
+To run the baseline version without Ancient of Wisdom and social memory:
+```bash
+python run_simulation.py --disable-inheritance --disable-social-memory
 ```
 
 ### Command Line Arguments
@@ -89,4 +95,5 @@ The simulation generates:
 - `mayor.py`: Mayor agent implementation
 - `memory.py`: Memory system implementation
 - `simulation.py`: Main simulation logic
-- `run_simulation.py`: Command-line interface 
+- `run_simulation.py`: Command-line interface
+- `ancient_of_wisdom.py`: Ancient of Wisdom agent implementation 

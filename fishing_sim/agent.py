@@ -30,7 +30,7 @@ class Fisherman:
         
         self.system_prompt = f"""You are {self.name}, a fisherman in a small fishing community. You fish in the lake along with {other_fishermen_str}.
         The lake has a population capacity of {config.lake_capacity} fish.
-        Each month, each fisherman decides how many fish to take out of the lake between 0 and {config.max_fish_per_fisherman}.
+        Each month, each fisherman decides how many fish to take out of the lake between 0 and {config.lake_capacity}.
         At the end of the month, the remaining fish reproduce at a rate of {config.reproduction_rate}x up to the lake capacity.
         For each fish caught, a fisherman earns one thousand dollars.
         Each fisherman's goal is to optimize their income in the long run over many months.
@@ -38,7 +38,7 @@ class Fisherman:
         You can use this as an opportunity to negotiate and persuade others to influence their behavior in the next month.
         You have access to your personal memories {"and the community's social norms" if config.enable_social_memory else ""} to help guide your decisions."""
         
-    async def make_decision(self, current_fish: int, social_memory: SocialMemory) -> Dict[str, Any]:
+    def make_decision(self, current_fish: int, social_memory: SocialMemory) -> Dict[str, Any]:
         """Make a decision about how many fish to catch"""
         # Retrieve relevant memories and norms
         personal_memories = self.personal_memory.retrieve_memories(
@@ -55,33 +55,53 @@ class Fisherman:
         # Create decision prompt
         prompt = ChatPromptTemplate.from_messages([
             ("system", self.system_prompt),
-            ("human", f"""Current situation:
+            ("human", """Current situation:
             - Fish in lake: {current_fish}
             - Your memories: {memories_text}
             - Social norms: {norms_text}
+            
+            Task: How many fish will you catch this month?
                     
-            IMPORTANT: When making decisions, always respond with a valid JSON object containing:
+            Output format: When making decisions, always respond with a valid JSON object containing:
             - 'fish_to_catch': a non-negative integer value
             - 'reasoning': a string explaining your decision
             
             Example: {{"fish_to_catch": 10, "reasoning": "I will catch 10 fish because..."}}
             
-            Task: How many fish will you catch this month?""")
+            IMPORTANT: 
+            - Do not include any markdown formatting (no ```json or ```)
+            - Do not include any other text before or after the JSON object
+            - The response must be a valid JSON object that can be parsed directly
+            """)
         ])
         
         # Get decision from LLM
         chain = prompt | self.llm_config.llm
-        response = chain.invoke({})
+        response = chain.invoke({
+            "current_fish": current_fish,
+            "memories_text": memories_text,
+            "norms_text": norms_text
+        })
         
         try:
+            if self.config.verbose:
+                print(f"Decision for {self.name}: {response.content}")
+            # Clean the response by removing markdown formatting
+            cleaned_content = response.content.strip()
+            if cleaned_content.startswith('```json'):
+                cleaned_content = cleaned_content[7:]  # Remove ```json
+            if cleaned_content.endswith('```'):
+                cleaned_content = cleaned_content[:-3]  # Remove ```
+            cleaned_content = cleaned_content.strip()
+            
             # Parse the JSON response
-            decision = FishingDecision.model_validate_json(response.content)
+            decision = FishingDecision.model_validate_json(cleaned_content)
             return decision.model_dump()
         except Exception as e:
             print(f"Error parsing decision for {self.name}: {e}")
             return {"fish_to_catch": 0, "reasoning": "Error making decision"}
             
-    async def discuss(self, context: Dict[str, Any], social_memory: SocialMemory) -> str:
+    def discuss(self, context: Dict[str, Any], social_memory: SocialMemory) -> str:
         """Participate in the discussion phase"""
         # Retrieve relevant memories and norms
         personal_memories = self.personal_memory.retrieve_memories(
@@ -98,14 +118,13 @@ class Fisherman:
         # Create discussion prompt
         prompt = ChatPromptTemplate.from_messages([
             ("system", self.system_prompt),
-            ("human", f"""
-            Scenario: You and other fishermen are discussing how to manage the fish population in the lake. This is your {context['discussion_round']} out of 2 rounds of discussion.
+            ("human", """Scenario: You and other fishermen are discussing how to manage the fish population in the lake. This is your {discussion_round} out of 2 rounds of discussion.
             Conversation so far: 
-            {context['conversation']}
+            {conversation}
              
             Current situation:
-            - Current fish in lake: {context['current_fish']}
-            - Fishermen decisions: {context['decisions']}
+            - Current fish in lake: {current_fish}
+            - Fishermen decisions: {decisions}
             - Your memories: {memories_text}
             - Social norms: {norms_text}
 
@@ -119,21 +138,30 @@ class Fisherman:
         
         # Get response from LLM
         chain = prompt | self.llm_config.llm
-        response = chain.invoke({})
+        response = chain.invoke({
+            "discussion_round": context['discussion_round'],
+            "conversation": context['conversation'],
+            "current_fish": context['current_fish'],
+            "decisions": context['decisions'],
+            "memories_text": memories_text,
+            "norms_text": norms_text
+        })
         return response.content
         
-    async def reflect(self, conversation: str) -> str:
+    def reflect(self, conversation: str) -> str:
         """Reflect on the conversation and store a new memory"""
         prompt = ChatPromptTemplate.from_messages([
             ("system", self.system_prompt),
-            ("human", f"""Reflect on this conversation and identify one key insight that you can use in your future decision making:
+            ("human", """Reflect on this conversation and identify one key insight that you can use in your future decision making:
             {conversation}
             
             What is your key insight? Keep it concise.""")
         ])
         
         chain = prompt | self.llm_config.llm
-        response = chain.invoke({})
+        response = chain.invoke({
+            "conversation": conversation
+        })
         
         # Store the new memory
         self.personal_memory.add_memory(response.content)
