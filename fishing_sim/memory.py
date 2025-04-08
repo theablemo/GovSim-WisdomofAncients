@@ -6,6 +6,7 @@ import numpy as np
 from datetime import datetime
 from .llm_config import LLMConfig
 from collections import deque
+import os
 
 
 class RunningMemory:
@@ -50,7 +51,23 @@ class InsightMemory:
         """Get all memories in the store"""
         if self.memory is None:
             return []
-        return self.memory.docstore.search("")
+        # Using docstore._dict.values() to properly get Document objects
+        return list(self.memory.docstore._dict.values())
+
+    def save_to_disk(self, directory: str):
+        """Save the FAISS vectorstore to disk"""
+        if self.memory is not None:
+            self.memory.save_local(directory)
+
+    @classmethod
+    def load_from_disk(cls, directory: str, config: Any, llm_config: LLMConfig):
+        """Load a FAISS vectorstore from disk"""
+        instance = cls(config, llm_config)
+        if os.path.exists(directory):
+            instance.memory = FAISS.load_local(
+                directory, llm_config.embeddings, allow_dangerous_deserialization=True
+            )
+        return instance
 
 
 class SocialMemory:
@@ -118,7 +135,23 @@ class SocialMemory:
         """Get all norms in the store"""
         if self.memory is None:
             return []
-        return self.memory.docstore.search("")
+        # Using docstore._dict.values() to properly get Document objects
+        return list(self.memory.docstore._dict.values())
+
+    def save_to_disk(self, directory: str):
+        """Save the FAISS vectorstore to disk"""
+        if self.memory is not None:
+            self.memory.save_local(directory)
+
+    @classmethod
+    def load_from_disk(cls, directory: str, config: Any, llm_config: LLMConfig):
+        """Load a FAISS vectorstore from disk"""
+        instance = cls(config, llm_config)
+        if os.path.exists(directory):
+            instance.memory = FAISS.load_local(
+                directory, llm_config.embeddings, allow_dangerous_deserialization=True
+            )
+        return instance
 
     def inherit_to_next_generation(self) -> "SocialMemory":
         """Create a new instance with the same memory store"""

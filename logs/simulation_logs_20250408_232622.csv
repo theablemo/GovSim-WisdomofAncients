@@ -1,0 +1,5 @@
+run,month,fish_before,fish_after,total_caught,sustainability_threshold,over_threshold,Sophia,Ava,Isabella,Mason,Emma
+1,1,100,40,60,20,True,10,10,15,10,15
+1,2,80,25,55,12,True,11,11,11,11,11
+2,1,100,35,65,17,True,10,15,15,10,15
+2,2,70,50,20,25,False,4,4,4,4,4

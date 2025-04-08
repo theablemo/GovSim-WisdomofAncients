@@ -11,6 +11,7 @@ from .agent import Fisherman
 from .mayor import Mayor
 from .memory import SocialMemory
 from .llm_config import LLMConfig
+import pickle
 
 
 class FishingSimulation:
@@ -83,6 +84,9 @@ class FishingSimulation:
         if self.config.verbose:
             # Use Tee to write to both console and StringIO
             sys.stdout = TeeOutput(original_stdout, self.console_output)
+
+        # Get the names of the fishermen for reuse in future runs
+        selected_names = [fisherman.name for fisherman in self.fishermen]
 
         # Simulation for each generation
         for run in range(self.config.num_runs):
@@ -159,8 +163,9 @@ class FishingSimulation:
                 for fisherman_name, fish_caught in decisions.items():
                     decision_log[f"{fisherman_name}_caught"] = fish_caught
                     decision_log[f"{fisherman_name}_reasoning"] = reasonings[fisherman_name]
+                    # Correct over_threshold check: check against full threshold, not fair share
                     decision_log[f"{fisherman_name}_over_threshold"] = (
-                        fish_caught > sustainability_threshold / len(self.fishermen)
+                        fish_caught > sustainability_threshold
                     )
 
                 run_decision_logs.append(decision_log)
@@ -264,14 +269,15 @@ class FishingSimulation:
             self.decisions_logs.extend(run_decision_logs)
             self.conversation_logs.extend(run_conversation_logs)
 
-            # Create next generation if enabled
+            # Create next generation
             if run < self.config.num_runs - 1:
                 if self.config.enable_inheritance:
                     if self.config.verbose:
                         print("\nInheritance Phase (Next Generation):")
                     new_fishermen = []
                     for fisherman in self.fishermen:
-                        new_fishermen.append(fisherman.create_offspring())
+                        # Pass the consistent selected_names to maintain name consistency
+                        new_fishermen.append(fisherman.create_offspring(selected_names))
                     self.fishermen = new_fishermen
 
                     # Inherit social memory
@@ -279,20 +285,17 @@ class FishingSimulation:
                     if self.config.verbose:
                         print("Social memory inherited to next generation")
                 else:
-                    # If inheritance is disabled, reset by creating fresh fishermen
+                    # If inheritance is disabled, reset by creating fresh fishermen with same names
                     if self.config.verbose:
                         print("\nResetting fishermen for next run (no inheritance):")
 
-                    self.fishermen = []
-                    # Select unique names for fishermen
-                    selected_names = random.sample(
-                        self.FISHERMAN_NAMES,
-                        min(self.config.num_fishermen, len(self.FISHERMAN_NAMES)),
-                    )
+                    # Store the current fishermen names to maintain consistency
+                    current_names = [fisherman.name for fisherman in self.fishermen]
 
-                    # Create new fishermen with real names and unique random seeds
+                    self.fishermen = []
+                    # Create new fishermen with the SAME names as before for consistency
                     for i in range(self.config.num_fishermen):
-                        name = selected_names[i] if i < len(selected_names) else f"Fisherman {i+1}"
+                        name = current_names[i] if i < len(current_names) else f"Fisherman {i+1}"
                         # Create a unique LLM config for each fisherman with their own seed
                         fisherman_llm_config = LLMConfig(
                             self.config, seed=i
@@ -301,10 +304,12 @@ class FishingSimulation:
                             Fisherman(name, self.config, selected_names, fisherman_llm_config)
                         )
 
-                    # Reset social memory
-                    self.social_memory = SocialMemory(self.config, self.llm_config)
-                    if self.config.verbose:
-                        print("Social memory reset for next run")
+                    # Reset social memory - properly indented outside the fishermen creation loop
+                    if self.config.enable_social_memory:
+                        # Reset social memory
+                        self.social_memory = SocialMemory(self.config, self.llm_config)
+                        if self.config.verbose:
+                            print("Social memory reset for next run")
 
         # Restore stdout
         if self.config.verbose:
@@ -412,6 +417,12 @@ class FishingSimulation:
 
         # Save each fisherman's memories
         for fisherman in self.fishermen:
+            # Save FAISS vectorstore using proper FAISS methods
+            if fisherman.insight_memory.memory is not None:
+                fisherman_faiss_dir = os.path.join(memories_dir, f"{fisherman.name}_faiss")
+                os.makedirs(fisherman_faiss_dir, exist_ok=True)
+                fisherman.insight_memory.save_to_disk(fisherman_faiss_dir)
+
             # Get running memories
             running_memories = fisherman.running_memory.get_recent_memories()
 
@@ -450,7 +461,12 @@ class FishingSimulation:
             pd.DataFrame(insight_memories_data).to_csv(insight_memories_path, index=False)
 
         # Also save social norms if enabled
-        if self.config.enable_social_memory:
+        if self.config.enable_social_memory and self.social_memory.memory is not None:
+            # Save FAISS vectorstore for social memory
+            social_memory_faiss_dir = os.path.join(memories_dir, "social_memory_faiss")
+            os.makedirs(social_memory_faiss_dir, exist_ok=True)
+            self.social_memory.save_to_disk(social_memory_faiss_dir)
+
             social_norms = self.social_memory.get_all_norms()
             social_norms_data = []
 
@@ -502,13 +518,18 @@ class FishingSimulation:
         # Extract needed data
         total_runs = self.config.num_runs
         total_months = self.config.num_months
-        fishermen_names = [f.name for f in self.fishermen]
+
+        # Get unique fishermen names across all runs
+        fishermen_columns = [col for col in df.columns if col.endswith("_caught")]
+        fishermen_names = [col.replace("_caught", "") for col in fishermen_columns]
+        fishermen_names = list(set(fishermen_names))  # Get unique names
 
         # 1. Survival Time (m) - longest period where shared resource remains above collapse threshold
         # Group by run and find the last month for each run
         last_months = df.groupby("run")["month"].max().reset_index()
         survival_times = last_months["month"]
-        survival_time = survival_times.mean()
+        # Use max instead of mean to match the formula definition
+        survival_time = survival_times.max()
 
         # 2. Survival Rate (q) - proportion of runs which achieve maximum survival time (all months)
         max_survival_runs = sum(survival_times == total_months)
@@ -517,7 +538,11 @@ class FishingSimulation:
         # 3. Total Gain (R_i) for each agent
         total_gains = {}
         for name in fishermen_names:
-            total_gains[name] = df[f"{name}_caught"].sum()
+            # Handle possible missing data for some runs
+            if f"{name}_caught" in df.columns:
+                total_gains[name] = df[f"{name}_caught"].sum()
+            else:
+                total_gains[name] = 0
 
         # Calculate average gain across all fishermen
         avg_gain = sum(total_gains.values()) / len(fishermen_names)
@@ -553,12 +578,22 @@ class FishingSimulation:
         inequality = inequality * 100  # Convert to percentage
 
         # 6. Over-usage (o) - percentage of actions that exceed sustainability threshold
-        # Count individual fisherman catches exceeding their fair share of threshold
-        over_threshold_actions = sum(
-            df[[f"{name}_over_threshold" for name in fishermen_names]].sum(axis=1)
-        )
-        total_actions = len(df) * len(fishermen_names)
-        over_usage = (over_threshold_actions / total_actions) * 100 if total_actions > 0 else 0
+        # Count individual fisherman catches exceeding the sustainability threshold (not fair share)
+        over_threshold_count = 0
+        total_actions = 0
+
+        for _, row in df.iterrows():
+            threshold = row["sustainability_threshold"]
+            for name in fishermen_names:
+                if f"{name}_caught" in row and not pd.isna(row[f"{name}_caught"]):
+                    total_actions += 1
+                    # Check if individual catch exceeds threshold (not fair share)
+                    if row[f"{name}_caught"] > threshold:
+                        over_threshold_count += 1
+
+        # Calculate over_usage using |I| * m as denominator (total possible actions)
+        survival_time_int = int(survival_time)  # Get integer value for calculation
+        over_usage = (over_threshold_count / total_actions) * 100 if total_actions > 0 else 0
 
         return {
             "survival_time": survival_time,

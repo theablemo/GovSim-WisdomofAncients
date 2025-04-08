@@ -320,12 +320,20 @@ class Fisherman:
             self.insight_memory.add_memory(default_memory)
             return default_memory, default_memory
 
-    def create_offspring(self) -> "Fisherman":
+    def create_offspring(self, all_fishermen_names=None) -> "Fisherman":
         """Create a new fisherman that inherits some memories from this one"""
+        # Use the SAME NAME as the parent to maintain consistency in data columns
+        # This ensures metrics calculations remain consistent across generations
+
+        # Use provided fishermen names or default to the existing ones
+        fishermen_names_to_use = (
+            all_fishermen_names if all_fishermen_names else self.all_fishermen_names
+        )
+
         offspring = Fisherman(
-            f"{self.name}'s offspring",
+            self.name,  # Use exactly the same name for consistency
             self.config,
-            self.all_fishermen_names,
+            fishermen_names_to_use,
             self.llm_config,
         )
 
