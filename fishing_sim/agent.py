@@ -1,8 +1,8 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
 from pydantic import BaseModel, Field
 from langchain.prompts import ChatPromptTemplate
 from .config import SimulationConfig
-from .memory import PersonalMemory, SocialMemory
+from .memory import InsightMemory, SocialMemory, RunningMemory
 from .llm_config import LLMConfig
 
 
@@ -24,7 +24,8 @@ class Fisherman:
         self.name = name
         self.config = config
         self.llm_config = llm_config
-        self.personal_memory = PersonalMemory(config, llm_config)
+        self.insight_memory = InsightMemory(config, llm_config)
+        self.running_memory = RunningMemory(max_memories=5)
         self.all_fishermen_names = all_fishermen_names
 
         # Create a list of other fishermen's names
@@ -49,26 +50,35 @@ class Fisherman:
         For example, if there are 90 tons of fish at the beginning of the month and the five fishermen catch a total of 30 fish, 
         there will be 60 tons of fish left at the end of the month before reproduction, and 100 tons after reproduction. 
         As the conversation goes on, you will pile up memories and social norms.
-        You have access to your personal memories {"and the community's social norms" if config.enable_social_memory else ""} 
+        You have access to your recent memories, deeper insights {"and the community's social norms" if config.enable_social_memory else ""} 
         to help guide your decisions. Remember that your memories and social norms may be empty at the beginning, so don't hallucinate and don't make up information."""
 
     def make_decision(self, current_fish: int, social_memory: SocialMemory) -> Dict[str, Any]:
         """Make a decision about how many fish to catch"""
         # Retrieve relevant memories and norms
-        personal_memories = self.personal_memory.retrieve_memories(
-            f"How many fish should I catch when there are {current_fish} fish in the lake?"
+        insights = self.insight_memory.retrieve_memories(
+            f"How many fish should I catch when there are {current_fish} fish in the lake?", k=2
         )
-        memories_text = (
-            "\n".join([m.page_content for m in personal_memories])
-            if personal_memories is not None and len(personal_memories) > 0
-            else "No memories yet"
+        insights_text = (
+            "\n".join([m.page_content for m in insights])
+            if insights is not None and len(insights) > 0
+            else "No insights yet"
+        )
+
+        # Get recent running memories
+        recent_memories = self.running_memory.get_recent_memories()
+        running_memories_text = (
+            "\n".join(recent_memories)
+            if recent_memories is not None and len(recent_memories) > 0
+            else "No recent memories yet"
         )
 
         # Only retrieve and format norms if social memory is enabled
         norms_text = ""
         if self.config.enable_social_memory:
             social_norms = social_memory.retrieve_norms(
-                f"How many fish should be caught when there are {current_fish} fish in the lake?"
+                f"How many fish should be caught when there are {current_fish} fish in the lake?",
+                k=2,
             )
             norms_text = (
                 "\n".join([n.page_content for n in social_norms])
@@ -77,7 +87,8 @@ class Fisherman:
             )
 
         if self.config.verbose:
-            print(f"\nMemories for {self.name}: {memories_text}")
+            print(f"\nInsights for {self.name}: {insights_text}")
+            print(f"Recent memories for {self.name}: {running_memories_text}")
             if self.config.enable_social_memory:
                 print(f"Norms for {self.name}: {norms_text}")
 
@@ -89,7 +100,8 @@ class Fisherman:
                     "human",
                     """Current situation:
                         - Current amount of fish in the lake: {current_fish}
-                        - Your memories: {memories_text}
+                        - Your recent chronological memories: {running_memories_text}
+                        - Your deeper insights: {insights_text}
                         {social_norms_section}
                         
                         Task: How many fish will you catch this month?
@@ -109,28 +121,13 @@ class Fisherman:
             ]
         )
 
-        # if self.config.verbose:
-        #     print(
-        #         "prompt: ",
-        #         prompt.invoke(
-        #             {
-        #                 "current_fish": current_fish,
-        #                 "memories_text": memories_text,
-        #                 "social_norms_section": (
-        #                     f"- Social norms: {norms_text}"
-        #                     if self.config.enable_social_memory
-        #                     else ""
-        #                 ),
-        #             }
-        #         ),
-        #     )
-
         # Get decision from LLM
         chain = prompt | self.llm_config.llm
         response = chain.invoke(
             {
                 "current_fish": current_fish,
-                "memories_text": memories_text,
+                "running_memories_text": running_memories_text,
+                "insights_text": insights_text,
                 "social_norms_section": (
                     f"- Social norms: {norms_text}" if self.config.enable_social_memory else ""
                 ),
@@ -138,7 +135,6 @@ class Fisherman:
         )
 
         try:
-            # print("response: ", self.llm_config.get_response_content(response))
             if self.config.verbose:
                 print(f"Decision for {self.name}: {self.llm_config.get_response_content(response)}")
             # Get standardized response content
@@ -151,31 +147,43 @@ class Fisherman:
 
             # Parse the JSON response
             decision = FishingDecision.model_validate_json(cleaned_content)
+            # Save decision to running memory
+            # self.running_memory.add_memory(
+            #     f"Decided to catch {decision.fish_to_catch} fish when lake had {current_fish} fish. Reasoning: {decision.reasoning}"
+            # )
             return decision.model_dump()
         except Exception as e:
             print(f"Error parsing decision for {self.name}: {e}. Will catch 0 fish.")
+            # self.running_memory.add_memory(
+            #     f"Error making decision when lake had {current_fish} fish. Defaulted to catching 0."
+            # )
             return {"fish_to_catch": 0, "reasoning": "Error making decision"}
 
     def discuss(self, context: Dict[str, Any], social_memory: SocialMemory) -> str:
         """Participate in the discussion phase"""
-        # if self.config.verbose:
-        #     print(f"\n{self.name} preparing to discuss...")
-
         retrieval_prompt = f"Discussing fishing decisions with other fishermen\
             with decisions by other fishermen: {context['decisions']}"
 
         # Retrieve relevant memories and norms
-        personal_memories = self.personal_memory.retrieve_memories(retrieval_prompt)
-        memories_text = (
-            "\n".join([m.page_content for m in personal_memories])
-            if personal_memories is not None and len(personal_memories) > 0
-            else "No memories yet"
+        insights = self.insight_memory.retrieve_memories(retrieval_prompt, k=2)
+        insights_text = (
+            "\n".join([m.page_content for m in insights])
+            if insights is not None and len(insights) > 0
+            else "No insights yet"
+        )
+
+        # Get recent running memories
+        recent_memories = self.running_memory.get_recent_memories()
+        running_memories_text = (
+            "\n".join(recent_memories)
+            if recent_memories is not None and len(recent_memories) > 0
+            else "No recent memories yet"
         )
 
         # Only retrieve and format norms if social memory is enabled
         norms_text = ""
         if self.config.enable_social_memory:
-            social_norms = social_memory.retrieve_norms(retrieval_prompt)
+            social_norms = social_memory.retrieve_norms(retrieval_prompt, k=2)
             norms_text = (
                 "\n".join([n.page_content for n in social_norms])
                 if social_norms is not None and len(social_norms) > 0
@@ -183,7 +191,8 @@ class Fisherman:
             )
 
         if self.config.verbose:
-            print(f"\nMemories for {self.name}: {len(personal_memories)} memories retrieved")
+            print(f"\nInsights for {self.name}: {len(insights)} insights retrieved")
+            print(f"Recent memories for {self.name}: {len(recent_memories)} recent memories")
             if self.config.enable_social_memory:
                 print(
                     f"Norms for {self.name}: {len(social_norms) if social_norms else 0} norms retrieved"
@@ -201,7 +210,8 @@ class Fisherman:
                         Conversation so far: 
                         {conversation}
                         
-                        Your memories: {memories_text}
+                        Your recent chronological memories: {running_memories_text}
+                        Your deeper insights: {insights_text}
                         {social_norms_section}
 
                         Task: What would you say next in the group chat? Ensure the conversation flows naturally and avoids repetition. Keep it natural and conversational.
@@ -227,14 +237,27 @@ class Fisherman:
                 "conversation": context["conversation"],
                 "current_fish": context["current_fish"],
                 "decisions": context["decisions"],
-                "memories_text": memories_text,
+                "running_memories_text": running_memories_text,
+                "insights_text": insights_text,
                 "social_norms_section": social_norms_section,
             }
         )
-        return self.llm_config.get_response_content(response)
+        discussion_response = self.llm_config.get_response_content(response)
 
-    def reflect(self, conversation: str, mayor_message: str) -> str:
-        """Reflect on the conversation and store a new memory"""
+        # Save a short summary of what was said to running memory
+        # summary = (
+        #     f"In discussion, said: {discussion_response[:50]}..."
+        #     if len(discussion_response) > 50
+        #     else f"In discussion, said: {discussion_response}"
+        # )
+        # self.running_memory.add_memory(summary)
+
+        return discussion_response
+
+    def reflect(self, conversation: str, mayor_message: str, month: int) -> Tuple[str, str]:
+        """Reflect on the conversation and store two types of memories:
+        1. A running memory from the conversation
+        2. An insight for the personal memory"""
         if self.config.verbose:
             print(f"\n{self.name} reflecting on conversation...")
 
@@ -243,21 +266,25 @@ class Fisherman:
                 ("system", self.system_prompt),
                 (
                     "human",
-                    """Reflect on this conversation and identify one key insight that you can use in your future decision making:
+                    """Reflect on this conversation and identify two things:
                         {conversation}
                         
                         Summary of the current situation (stated by the mayor):
                         {mayor_message}
                         
-                        You should write two sentences:
-                        1. Write down if there is anything from the conversation that you need to remember for your planning, 
-                        from your own perspective, in a full sentence.
-                        2. In one sentence, what is your key insight that you want to remember 
-                        and can use in your future decision making?
+                        You should write two parts, clearly separated:
+                        1. Write one sentence about something from the conversation that you need to remember
+                        chronologically for your short-term planning. This will be saved as a running memory.
+                        2. Write one sentence with a deeper insight that you want to remember
+                        and can use in your future decision making. This will be saved as an insight memory.
+                        
+                        Format your response exactly like this:
+                        Running memory: [Your one sentence running memory here]
+                        Insight: [Your one sentence insight here]
+                        
                         IMPORTANT: 
                         - Keep it concise.
-                        - Do not include any other text or formatting. Just write two sentences 
-                        without any other text or formatting.
+                        - Do not include any other text or formatting.
                     """,
                 ),
             ]
@@ -265,10 +292,33 @@ class Fisherman:
 
         chain = prompt | self.llm_config.llm
         response = chain.invoke({"conversation": conversation, "mayor_message": mayor_message})
+        full_response = self.llm_config.get_response_content(response)
 
-        # Store the new memory
-        self.personal_memory.add_memory(self.llm_config.get_response_content(response))
-        return self.llm_config.get_response_content(response)
+        # Parse the two parts
+        try:
+            running_memory_part = ""
+            insight_part = ""
+
+            lines = full_response.strip().split("\n")
+            for line in lines:
+                if line.startswith("Running memory:"):
+                    running_memory_part = line[len("Running memory:") :].strip()
+                elif line.startswith("Insight:"):
+                    insight_part = line[len("Insight:") :].strip()
+
+            # Store the new memories
+            self.running_memory.add_memory(running_memory_part, month)
+            self.insight_memory.add_memory(insight_part)
+
+            return running_memory_part, insight_part
+        except Exception as e:
+            print(f"Error parsing reflection for {self.name}: {e}")
+            default_memory = (
+                "Reflected on the conversation but had trouble articulating specific insights."
+            )
+            self.running_memory.add_memory(default_memory, month)
+            self.insight_memory.add_memory(default_memory)
+            return default_memory, default_memory
 
     def create_offspring(self) -> "Fisherman":
         """Create a new fisherman that inherits some memories from this one"""
@@ -279,25 +329,24 @@ class Fisherman:
             self.llm_config,
         )
 
-        if self.config.enable_inheritance:
-            # Get all memories and select a portion to inherit
-            all_memories = self.personal_memory.get_all_memories()
-            num_to_inherit = int(len(all_memories) * self.config.inheritance_rate)
+        # Get all memories and select a portion to inherit
+        all_memories = self.insight_memory.get_all_memories()
+        num_to_inherit = int(len(all_memories) * self.config.inheritance_rate)
 
-            # Randomly select memories to inherit
-            import random
+        # Randomly select memories to inherit
+        import random
 
-            memories_to_inherit = random.sample(
-                all_memories, min(num_to_inherit, len(all_memories))
+        memories_to_inherit = random.sample(all_memories, min(num_to_inherit, len(all_memories)))
+
+        if self.config.verbose:
+            print(
+                f"\nCreating offspring for {self.name} with {len(memories_to_inherit)}/{len(all_memories)} inherited memories"
             )
 
-            if self.config.verbose:
-                print(
-                    f"\nCreating offspring for {self.name} with {len(memories_to_inherit)}/{len(all_memories)} inherited memories"
-                )
+        # Add inherited memories to offspring
+        for memory in memories_to_inherit:
+            offspring.insight_memory.add_memory(memory.page_content, memory.metadata)
 
-            # Add inherited memories to offspring
-            for memory in memories_to_inherit:
-                offspring.personal_memory.add_memory(memory.page_content, memory.metadata)
+        # Running memories are not inherited as they are more recent/contextual
 
         return offspring

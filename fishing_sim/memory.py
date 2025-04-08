@@ -5,9 +5,27 @@ from langchain.memory import VectorStoreRetrieverMemory
 import numpy as np
 from datetime import datetime
 from .llm_config import LLMConfig
+from collections import deque
 
 
-class PersonalMemory:
+class RunningMemory:
+    def __init__(self, max_memories: int = 5):
+        self.memories = deque(maxlen=max_memories)
+
+    def add_memory(self, memory_text: str, current_month: int):
+        """Add a new memory with timestamp to the running memory"""
+        # timestamp = datetime.now().strftime("%Y-%m-%d")
+        timestamp = f"Month #{current_month}"
+        formatted_memory = f"{timestamp}: {memory_text}"
+        self.memories.append(formatted_memory)
+
+    def get_recent_memories(self, n: int = None) -> List[str]:
+        """Get the n most recent memories"""
+        n = n or len(self.memories)
+        return list(self.memories)[-n:]
+
+
+class InsightMemory:
     def __init__(self, config: Any, llm_config: LLMConfig):
         self.embeddings = llm_config.embeddings
         self.memory = None  # Initialize as None
@@ -80,9 +98,7 @@ class SocialMemory:
         k = k or self.config.social_memory_size
 
         # Get initial similarity search results
-        docs = self.memory.similarity_search(
-            query, k=k * 2
-        )  # Get more results than needed
+        docs = self.memory.similarity_search(query, k=k * 2)  # Get more results than needed
 
         # Calculate weighted scores
         scored_docs = []
