@@ -8,3 +8,4 @@ pandas>=2.0.0
 faiss-cpu>=1.7.4 
 langchain-google-genai >= 2.1.2
 langchain-openai >= 0.3.12
+langchain-ollama >= 0.0.1

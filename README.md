@@ -15,7 +15,10 @@ This simulation models a community of fishermen who must make decisions about ho
 ## Requirements
 
 - Python 3.8+
-- OpenAI API key
+- One of the following LLM providers:
+  - Azure OpenAI API credentials
+  - Google API key
+  - Ollama (local installation)
 - Required Python packages (see requirements.txt)
 
 ## Installation
@@ -25,10 +28,28 @@ This simulation models a community of fishermen who must make decisions about ho
    ```bash
    pip install -r requirements.txt
    ```
-3. Set your OpenAI API key as an environment variable:
-   ```bash
-   export OPENAI_API_KEY='your-api-key'
-   ```
+3. Set up environment variables based on your chosen LLM provider:
+
+### Azure OpenAI
+```bash
+export AZURE_OPENAI_ENDPOINT='your-azure-endpoint'
+export AZURE_OPENAI_API_KEY='your-api-key'
+export AZURE_OPENAI_API_VERSION='2024-12-01-preview'
+export AZURE_OPENAI_CHAT_COMPLETION_DEPLOYMENT_NAME='your-deployment-name'
+export AZURE_OPENAI_CHAT_COMPLETION_MODEL_NAME='your-model-name'
+```
+
+### Google
+```bash
+export GOOGLE_API_KEY='your-api-key'
+export GOOGLE_MODEL_NAME='gemini-pro'  # or your preferred model
+```
+
+### Ollama
+```bash
+# No environment variables needed, but ensure Ollama is installed and running locally
+# Default model is 'gemma3'
+```
 
 ## Usage
 
@@ -63,8 +84,11 @@ python run_simulation.py --disable-inheritance --disable-social-memory
   - `--disable-social-memory`: Disable social memory
 
 - LLM settings:
-  - `--model-name`: LLM model name (default: gpt-3.5-turbo)
-  - `--temperature`: LLM temperature (default: 0.7)
+  - `--llm-type`: LLM provider to use (choices: "openai", "google", "ollama", default: "openai")
+  - `--model-name`: LLM model name (default depends on llm-type)
+  - `--temperature`: LLM temperature (default: 0.0)
+  - `--max-tokens`: Maximum tokens per response (default: 1000)
+  - `--chunk-size`: Chunk size for embeddings (default: 1000)
 
 - Logging settings:
   - `--log-dir`: Directory for log files (default: logs)
@@ -75,6 +99,11 @@ python run_simulation.py --disable-inheritance --disable-social-memory
 Run a simulation with inheritance enabled and custom parameters:
 ```bash
 python run_simulation.py --num-fishermen 10 --initial-fish 200 --enable-inheritance --inheritance-rate 0.8
+```
+
+Run with Ollama:
+```bash
+python run_simulation.py --llm-type ollama --model-name gemma3
 ```
 
 ## Output
@@ -96,4 +125,5 @@ The simulation generates:
 - `memory.py`: Memory system implementation
 - `simulation.py`: Main simulation logic
 - `run_simulation.py`: Command-line interface
-- `ancient_of_wisdom.py`: Ancient of Wisdom agent implementation 
+- `ancient_of_wisdom.py`: Ancient of Wisdom agent implementation
+- `llm_config.py`: LLM configuration and response handling 

@@ -2,40 +2,88 @@ import argparse
 from fishing_sim.config import SimulationConfig
 from fishing_sim.simulation import FishingSimulation
 
+
 def main():
-    parser = argparse.ArgumentParser(description='Run the Fishing Community Simulation')
-    
+    parser = argparse.ArgumentParser(description="Run the Fishing Community Simulation")
+
     # Basic simulation parameters
-    parser.add_argument('--num-fishermen', type=int, default=5, help='Number of fishermen')
-    parser.add_argument('--lake-capacity', type=int, default=100, help='Maximum fish population in the lake')
-    parser.add_argument('--reproduction-rate', type=float, default=2.0, help='Fish reproduction rate per month (e.g., 2.0 means 100% increase)')
-    parser.add_argument('--collapse-threshold', type=int, default=5, help='Collapse threshold')
-    parser.add_argument('--num-months', type=int, default=12, help='Number of months per run')
-    parser.add_argument('--num-runs', type=int, default=5, help='Number of runs')
-    
+    parser.add_argument(
+        "--num-fishermen", type=int, default=5, help="Number of fishermen"
+    )
+    parser.add_argument(
+        "--lake-capacity",
+        type=int,
+        default=100,
+        help="Maximum fish population in the lake",
+    )
+    parser.add_argument(
+        "--reproduction-rate",
+        type=float,
+        default=2.0,
+        help="Fish reproduction rate per month (e.g., 2.0 means 100% increase)",
+    )
+    parser.add_argument(
+        "--collapse-threshold", type=int, default=5, help="Collapse threshold"
+    )
+    parser.add_argument(
+        "--num-months", type=int, default=12, help="Number of months per run"
+    )
+    parser.add_argument("--num-runs", type=int, default=5, help="Number of runs")
+
     # Memory settings
-    parser.add_argument('--personal-memory-size', type=int, default=5, help='Number of personal memories to retrieve')
-    parser.add_argument('--social-memory-size', type=int, default=2, help='Number of social norms to retrieve')
-    
+    parser.add_argument(
+        "--personal-memory-size",
+        type=int,
+        default=5,
+        help="Number of personal memories to retrieve",
+    )
+    parser.add_argument(
+        "--social-memory-size",
+        type=int,
+        default=2,
+        help="Number of social norms to retrieve",
+    )
+
     # Inheritance settings
-    parser.add_argument('--disable-inheritance', action='store_true', help='Disable memory inheritance between runs')
-    parser.add_argument('--inheritance-rate', type=float, default=0.7, help='Rate of memory inheritance')
-    
+    parser.add_argument(
+        "--disable-inheritance",
+        action="store_true",
+        help="Disable memory inheritance between runs",
+    )
+    parser.add_argument(
+        "--inheritance-rate", type=float, default=0.7, help="Rate of memory inheritance"
+    )
+
     # Social memory settings
-    parser.add_argument('--disable-social-memory', action='store_true', help='Disable social memory')
-    
+    parser.add_argument(
+        "--disable-social-memory", action="store_true", help="Disable social memory"
+    )
+
     # LLM settings
-    parser.add_argument('--llm-type', type=str, choices=['google', 'openai', 'ollama'], default='google',
-                      help='Type of LLM to use (google, openai, or ollama)')
-    parser.add_argument('--model-name', type=str, help='Model name to use (optional, defaults to provider-specific default)')
-    parser.add_argument('--temperature', type=float, default=0.0, help='LLM temperature')
-    
+    parser.add_argument(
+        "--llm-type",
+        type=str,
+        choices=["google", "openai", "ollama"],
+        default="ollama",
+        help="Type of LLM to use (google, openai, or ollama)",
+    )
+    parser.add_argument(
+        "--model-name",
+        type=str,
+        help="Model name to use (optional, defaults to provider-specific default)",
+    )
+    parser.add_argument(
+        "--temperature", type=float, default=0.3, help="LLM temperature"
+    )
+
     # Logging settings
-    parser.add_argument('--log-dir', type=str, default='logs', help='Directory for log files')
-    parser.add_argument('--quiet', action='store_true', help='Disable verbose output')
-    
+    parser.add_argument(
+        "--log-dir", type=str, default="logs", help="Directory for log files"
+    )
+    parser.add_argument("--quiet", action="store_true", help="Disable verbose output")
+
     args = parser.parse_args()
-    
+
     # Create configuration
     config = SimulationConfig(
         num_fishermen=args.num_fishermen,
@@ -50,19 +98,19 @@ def main():
         inheritance_rate=args.inheritance_rate,
         enable_social_memory=not args.disable_social_memory,
         log_dir=args.log_dir,
-        verbose=not args.quiet
+        verbose=not args.quiet,
     )
-    
+
     # Run simulation with LLM configuration
     simulation = FishingSimulation(
         config,
         llm_type=args.llm_type,
         model_name=args.model_name,
-        temperature=args.temperature
+        temperature=args.temperature,
     )
     simulation.run_simulation()
     simulation.save_logs()
-    
+
     # Print summary
     summary = simulation.get_summary()
     print("\nSimulation Summary:")
@@ -72,5 +120,6 @@ def main():
     print(f"Number of collapses: {summary['collapses']}")
     print(f"Average monthly catch: {summary['average_monthly_catch']:.2f}")
 
+
 if __name__ == "__main__":
-    main() 
+    main()

@@ -5,183 +5,299 @@ from .config import SimulationConfig
 from .memory import PersonalMemory, SocialMemory
 from .llm_config import LLMConfig
 
+
 class FishingDecision(BaseModel):
     """Model for structured fishing decision output"""
+
     fish_to_catch: int = Field(description="The number of fish to catch this month", ge=0)
     reasoning: str = Field(description="The reasoning behind the decision")
 
+
 class Fisherman:
     def __init__(
-        self, 
-        name: str, 
+        self,
+        name: str,
         config: SimulationConfig,
         all_fishermen_names: List[str],
-        llm_config: LLMConfig
+        llm_config: LLMConfig,
     ):
         self.name = name
         self.config = config
         self.llm_config = llm_config
         self.personal_memory = PersonalMemory(config, llm_config)
         self.all_fishermen_names = all_fishermen_names
-        
+
         # Create a list of other fishermen's names
         other_fishermen = [n for n in all_fishermen_names if n != name]
-        other_fishermen_str = ", ".join(other_fishermen[:-1]) + (f" and {other_fishermen[-1]}" if len(other_fishermen) > 1 else other_fishermen[0] if other_fishermen else "no one")
-        
-        self.system_prompt = f"""You are {self.name}, a fisherman in a small fishing community. You fish in the lake along with {other_fishermen_str}.
-        The lake has a population capacity of {config.lake_capacity} fish.
-        Each month, each fisherman decides how many fish to take out of the lake between 0 and {config.lake_capacity}.
-        At the end of the month, the remaining fish reproduce at a rate of {config.reproduction_rate}x up to the lake capacity.
-        For each fish caught, a fisherman earns one thousand dollars.
-        Each fisherman's goal is to optimize their income in the long run over many months.
-        At the end of each month, the number of fish caught by each fisherman will be revealed, and the fishermen will have an opportunity to communicate with each other.
-        You can use this as an opportunity to negotiate and persuade others to influence their behavior in the next month.
-        You have access to your personal memories {"and the community's social norms" if config.enable_social_memory else ""} to help guide your decisions."""
-        
+        other_fishermen_str = ", ".join(other_fishermen[:-1]) + (
+            f" and {other_fishermen[-1]}"
+            if len(other_fishermen) > 1
+            else other_fishermen[0] if other_fishermen else "no one"
+        )
+
+        self.system_prompt = f"""
+        You are {self.name}, a fisherman in a small fishing community. 
+        You fish in the lake along with {config.num_fishermen} other fishermen named {other_fishermen_str}.
+        The lake has a population capacity of {config.lake_capacity} fish. 
+        At the beginning of each month, each fisherman decides how many fish to take out of the lake between 0 and {config.lake_capacity}. 
+        At the end of the month, the remaining fish reproduce at a rate of {config.reproduction_rate}x up to the lake capacity. 
+        For each fish caught, a fisherman earns one thousand dollars. 
+        Each fisherman's goal is to optimize his income in the long run over many months. 
+        At the end of each month, the number of fish caught by each fisherman will be revealed, 
+        and the fishermen will have the opportunity to communicate with each other. 
+        They can use this as an opportunity to negotiate and persuade others to influence their behavior in the next month. 
+        For example, if there are 90 tons of fish at the beginning of the month and the five fishermen catch a total of 30 fish, 
+        there will be 60 tons of fish left at the end of the month before reproduction, and 100 tons after reproduction. 
+        As the conversation goes on, you will pile up memories and social norms.
+        You have access to your personal memories {"and the community's social norms" if config.enable_social_memory else ""} 
+        to help guide your decisions. Remember that your memories and social norms may be empty at the beginning, so don't hallucinate and don't make up information."""
+
     def make_decision(self, current_fish: int, social_memory: SocialMemory) -> Dict[str, Any]:
         """Make a decision about how many fish to catch"""
         # Retrieve relevant memories and norms
         personal_memories = self.personal_memory.retrieve_memories(
             f"How many fish should I catch when there are {current_fish} fish in the lake?"
         )
-        social_norms = social_memory.retrieve_norms(
-            f"How many fish should be caught when there are {current_fish} fish in the lake?"
+        memories_text = (
+            "\n".join([m.page_content for m in personal_memories])
+            if personal_memories is not None and len(personal_memories) > 0
+            else "No memories yet"
         )
-        
-        # Format memories and norms for the prompt
-        memories_text = "\n".join([m.page_content for m in personal_memories])
-        norms_text = "\n".join([n.page_content for n in social_norms])
-        
+
+        # Only retrieve and format norms if social memory is enabled
+        norms_text = ""
+        if self.config.enable_social_memory:
+            social_norms = social_memory.retrieve_norms(
+                f"How many fish should be caught when there are {current_fish} fish in the lake?"
+            )
+            norms_text = (
+                "\n".join([n.page_content for n in social_norms])
+                if social_norms is not None and len(social_norms) > 0
+                else "No norms yet"
+            )
+
+        if self.config.verbose:
+            print(f"\nMemories for {self.name}: {memories_text}")
+            if self.config.enable_social_memory:
+                print(f"Norms for {self.name}: {norms_text}")
+
         # Create decision prompt
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", self.system_prompt),
-            ("human", """Current situation:
-            - Fish in lake: {current_fish}
-            - Your memories: {memories_text}
-            - Social norms: {norms_text}
-            
-            Task: How many fish will you catch this month?
-                    
-            Output format: When making decisions, always respond with a valid JSON object containing:
-            - 'fish_to_catch': a non-negative integer value
-            - 'reasoning': a string explaining your decision
-            
-            Example: {{"fish_to_catch": 10, "reasoning": "I will catch 10 fish because..."}}
-            
-            IMPORTANT: 
-            - Do not include any markdown formatting (no ```json or ```)
-            - Do not include any other text before or after the JSON object
-            - The response must be a valid JSON object that can be parsed directly
-            """)
-        ])
-        
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", self.system_prompt),
+                (
+                    "human",
+                    """Current situation:
+                        - Current amount of fish in the lake: {current_fish}
+                        - Your memories: {memories_text}
+                        {social_norms_section}
+                        
+                        Task: How many fish will you catch this month?
+                                
+                        Output format: When making decisions, always respond with a valid JSON object containing:
+                        - 'fish_to_catch': a non-negative integer value
+                        - 'reasoning': a string explaining your decision
+                        
+                        Example: {{"fish_to_catch": 10, "reasoning": "I will catch 10 fish because..."}}
+                        
+                        IMPORTANT: 
+                        - Do not include any markdown formatting (no ```json or ```)
+                        - Do not include any other text before or after the JSON object
+                        - The response must be a valid JSON object that can be parsed directly
+                    """,
+                ),
+            ]
+        )
+
+        # if self.config.verbose:
+        #     print(
+        #         "prompt: ",
+        #         prompt.invoke(
+        #             {
+        #                 "current_fish": current_fish,
+        #                 "memories_text": memories_text,
+        #                 "social_norms_section": (
+        #                     f"- Social norms: {norms_text}"
+        #                     if self.config.enable_social_memory
+        #                     else ""
+        #                 ),
+        #             }
+        #         ),
+        #     )
+
         # Get decision from LLM
         chain = prompt | self.llm_config.llm
-        response = chain.invoke({
-            "current_fish": current_fish,
-            "memories_text": memories_text,
-            "norms_text": norms_text
-        })
-        
+        response = chain.invoke(
+            {
+                "current_fish": current_fish,
+                "memories_text": memories_text,
+                "social_norms_section": (
+                    f"- Social norms: {norms_text}" if self.config.enable_social_memory else ""
+                ),
+            }
+        )
+
         try:
+            # print("response: ", self.llm_config.get_response_content(response))
             if self.config.verbose:
-                print(f"Decision for {self.name}: {response.content}")
-            # Clean the response by removing markdown formatting
-            cleaned_content = response.content.strip()
-            if cleaned_content.startswith('```json'):
+                print(f"Decision for {self.name}: {self.llm_config.get_response_content(response)}")
+            # Get standardized response content
+            cleaned_content = self.llm_config.get_response_content(response).strip()
+            if cleaned_content.startswith("```json"):
                 cleaned_content = cleaned_content[7:]  # Remove ```json
-            if cleaned_content.endswith('```'):
+            if cleaned_content.endswith("```"):
                 cleaned_content = cleaned_content[:-3]  # Remove ```
             cleaned_content = cleaned_content.strip()
-            
+
             # Parse the JSON response
             decision = FishingDecision.model_validate_json(cleaned_content)
             return decision.model_dump()
         except Exception as e:
-            print(f"Error parsing decision for {self.name}: {e}")
+            print(f"Error parsing decision for {self.name}: {e}. Will catch 0 fish.")
             return {"fish_to_catch": 0, "reasoning": "Error making decision"}
-            
+
     def discuss(self, context: Dict[str, Any], social_memory: SocialMemory) -> str:
         """Participate in the discussion phase"""
-        # Retrieve relevant memories and norms
-        personal_memories = self.personal_memory.retrieve_memories(
-            f"Discussing fishing decisions with other fishermen"
-        )
-        social_norms = social_memory.retrieve_norms(
-            f"Discussing fishing decisions with other fishermen"
-        )
-        
-        # Format memories and norms
-        memories_text = "\n".join([m.page_content for m in personal_memories])
-        norms_text = "\n".join([n.page_content for n in social_norms])
-        
-        # Create discussion prompt
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", self.system_prompt),
-            ("human", """Scenario: You and other fishermen are discussing how to manage the fish population in the lake. This is your {discussion_round} out of 2 rounds of discussion.
-            Conversation so far: 
-            {conversation}
-             
-            Current situation:
-            - Current fish in lake: {current_fish}
-            - Fishermen decisions: {decisions}
-            - Your memories: {memories_text}
-            - Social norms: {norms_text}
+        # if self.config.verbose:
+        #     print(f"\n{self.name} preparing to discuss...")
 
-            Task: What would you say next in the group chat? Ensure the conversation flows naturally and avoids repetition. Keep it natural and conversational.
-            
-            Give your response in the following format without any other text:
-            Response: <your response>
-            
-            IMPORTANT: Keep your response concise and to the point.""")
-        ])
-        
+        retrieval_prompt = f"Discussing fishing decisions with other fishermen\
+            with decisions by other fishermen: {context['decisions']}"
+
+        # Retrieve relevant memories and norms
+        personal_memories = self.personal_memory.retrieve_memories(retrieval_prompt)
+        memories_text = (
+            "\n".join([m.page_content for m in personal_memories])
+            if personal_memories is not None and len(personal_memories) > 0
+            else "No memories yet"
+        )
+
+        # Only retrieve and format norms if social memory is enabled
+        norms_text = ""
+        if self.config.enable_social_memory:
+            social_norms = social_memory.retrieve_norms(retrieval_prompt)
+            norms_text = (
+                "\n".join([n.page_content for n in social_norms])
+                if social_norms is not None and len(social_norms) > 0
+                else "No norms yet"
+            )
+
+        if self.config.verbose:
+            print(f"\nMemories for {self.name}: {len(personal_memories)} memories retrieved")
+            if self.config.enable_social_memory:
+                print(
+                    f"Norms for {self.name}: {len(social_norms) if social_norms else 0} norms retrieved"
+                )
+
+        # Create discussion prompt
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", self.system_prompt),
+                (
+                    "human",
+                    """Scenario: 
+                        You and other fishermen are discussing how to manage the fish population in the lake. 
+                        This is your {discussion_round} out of 2 rounds of discussion.
+                        Conversation so far: 
+                        {conversation}
+                        
+                        Your memories: {memories_text}
+                        {social_norms_section}
+
+                        Task: What would you say next in the group chat? Ensure the conversation flows naturally and avoids repetition. Keep it natural and conversational.
+                        
+                        IMPORTANT: 
+                        - Keep your response concise and to the point.
+                        - Give your response without any other text or formatting.
+                    """,
+                ),
+            ]
+        )
+
+        # Prepare social norms section based on config
+        social_norms_section = (
+            f"- Social norms: {norms_text}" if self.config.enable_social_memory else ""
+        )
+
         # Get response from LLM
         chain = prompt | self.llm_config.llm
-        response = chain.invoke({
-            "discussion_round": context['discussion_round'],
-            "conversation": context['conversation'],
-            "current_fish": context['current_fish'],
-            "decisions": context['decisions'],
-            "memories_text": memories_text,
-            "norms_text": norms_text
-        })
-        return response.content
-        
-    def reflect(self, conversation: str) -> str:
+        response = chain.invoke(
+            {
+                "discussion_round": context["discussion_round"],
+                "conversation": context["conversation"],
+                "current_fish": context["current_fish"],
+                "decisions": context["decisions"],
+                "memories_text": memories_text,
+                "social_norms_section": social_norms_section,
+            }
+        )
+        return self.llm_config.get_response_content(response)
+
+    def reflect(self, conversation: str, mayor_message: str) -> str:
         """Reflect on the conversation and store a new memory"""
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", self.system_prompt),
-            ("human", """Reflect on this conversation and identify one key insight that you can use in your future decision making:
-            {conversation}
-            
-            What is your key insight? Keep it concise.""")
-        ])
-        
+        if self.config.verbose:
+            print(f"\n{self.name} reflecting on conversation...")
+
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", self.system_prompt),
+                (
+                    "human",
+                    """Reflect on this conversation and identify one key insight that you can use in your future decision making:
+                        {conversation}
+                        
+                        Summary of the current situation (stated by the mayor):
+                        {mayor_message}
+                        
+                        You should write two sentences:
+                        1. Write down if there is anything from the conversation that you need to remember for your planning, 
+                        from your own perspective, in a full sentence.
+                        2. In one sentence, what is your key insight that you want to remember 
+                        and can use in your future decision making?
+                        IMPORTANT: 
+                        - Keep it concise.
+                        - Do not include any other text or formatting. Just write two sentences 
+                        without any other text or formatting.
+                    """,
+                ),
+            ]
+        )
+
         chain = prompt | self.llm_config.llm
-        response = chain.invoke({
-            "conversation": conversation
-        })
-        
+        response = chain.invoke({"conversation": conversation, "mayor_message": mayor_message})
+
         # Store the new memory
-        self.personal_memory.add_memory(response.content)
-        return response.content
-        
-    def create_offspring(self) -> 'Fisherman':
+        self.personal_memory.add_memory(self.llm_config.get_response_content(response))
+        return self.llm_config.get_response_content(response)
+
+    def create_offspring(self) -> "Fisherman":
         """Create a new fisherman that inherits some memories from this one"""
-        offspring = Fisherman(f"{self.name}'s offspring", self.config, self.all_fishermen_names, self.llm_config)
-        
+        offspring = Fisherman(
+            f"{self.name}'s offspring",
+            self.config,
+            self.all_fishermen_names,
+            self.llm_config,
+        )
+
         if self.config.enable_inheritance:
             # Get all memories and select a portion to inherit
             all_memories = self.personal_memory.get_all_memories()
             num_to_inherit = int(len(all_memories) * self.config.inheritance_rate)
-            
+
             # Randomly select memories to inherit
             import random
-            memories_to_inherit = random.sample(all_memories, min(num_to_inherit, len(all_memories)))
-            
+
+            memories_to_inherit = random.sample(
+                all_memories, min(num_to_inherit, len(all_memories))
+            )
+
+            if self.config.verbose:
+                print(
+                    f"\nCreating offspring for {self.name} with {len(memories_to_inherit)}/{len(all_memories)} inherited memories"
+                )
+
             # Add inherited memories to offspring
             for memory in memories_to_inherit:
                 offspring.personal_memory.add_memory(memory.page_content, memory.metadata)
-                
-        return offspring 
+
+        return offspring
