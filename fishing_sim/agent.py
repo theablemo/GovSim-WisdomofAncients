@@ -298,6 +298,7 @@ class Fisherman:
         chain = prompt | self.llm_config.llm
         response = chain.invoke({"conversation": conversation, "mayor_message": mayor_message})
 
+
         try:
             # Use the centralized JSON extraction method
             default_reflection = Reflection(

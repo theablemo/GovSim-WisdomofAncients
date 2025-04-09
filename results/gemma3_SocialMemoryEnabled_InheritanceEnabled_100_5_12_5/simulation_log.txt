@@ -1,0 +1,412 @@
+
+--------------------------------
+--------------------------------
+Starting Run 1/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Norms for Emma: No norms yet
+Decision for Emma: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too soon could quickly deplete the lake."
+}
+```
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Norms for Sophia: No norms yet
+Decision for Sophia: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the lake responds. I don't want to deplete the lake too quickly."
+}
+```
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Norms for Ava: No norms yet
+Decision for Ava: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
+}
+```
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Norms for Liam: No norms yet
+Decision for Liam: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Norms for Ethan: No norms yet
+Decision for Ethan: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Inheritance Phase (Next Generation):
+
+Creating offspring for Emma with 0/0 inherited memories
+
+Creating offspring for Sophia with 0/0 inherited memories
+
+Creating offspring for Ava with 0/0 inherited memories
+
+Creating offspring for Liam with 0/0 inherited memories
+
+Creating offspring for Ethan with 0/0 inherited memories
+Social memory inherited to next generation
+
+--------------------------------
+--------------------------------
+Starting Run 2/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Norms for Emma: No norms yet
+Decision for Emma: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too soon could quickly deplete the lake."
+}
+```
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Norms for Sophia: No norms yet
+Decision for Sophia: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the lake responds. I don't want to deplete the lake too quickly."
+}
+```
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Norms for Ava: No norms yet
+Decision for Ava: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
+}
+```
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Norms for Liam: No norms yet
+Decision for Liam: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Norms for Ethan: No norms yet
+Decision for Ethan: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Inheritance Phase (Next Generation):
+
+Creating offspring for Emma with 0/0 inherited memories
+
+Creating offspring for Sophia with 0/0 inherited memories
+
+Creating offspring for Ava with 0/0 inherited memories
+
+Creating offspring for Liam with 0/0 inherited memories
+
+Creating offspring for Ethan with 0/0 inherited memories
+Social memory inherited to next generation
+
+--------------------------------
+--------------------------------
+Starting Run 3/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Norms for Emma: No norms yet
+Decision for Emma: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too soon could quickly deplete the lake."
+}
+```
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Norms for Sophia: No norms yet
+Decision for Sophia: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the lake responds. I don't want to deplete the lake too quickly."
+}
+```
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Norms for Ava: No norms yet
+Decision for Ava: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
+}
+```
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Norms for Liam: No norms yet
+Decision for Liam: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Norms for Ethan: No norms yet
+Decision for Ethan: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Inheritance Phase (Next Generation):
+
+Creating offspring for Emma with 0/0 inherited memories
+
+Creating offspring for Sophia with 0/0 inherited memories
+
+Creating offspring for Ava with 0/0 inherited memories
+
+Creating offspring for Liam with 0/0 inherited memories
+
+Creating offspring for Ethan with 0/0 inherited memories
+Social memory inherited to next generation
+
+--------------------------------
+--------------------------------
+Starting Run 4/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Norms for Emma: No norms yet
+Decision for Emma: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too soon could quickly deplete the lake."
+}
+```
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Norms for Sophia: No norms yet
+Decision for Sophia: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the lake responds. I don't want to deplete the lake too quickly."
+}
+```
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Norms for Ava: No norms yet
+Decision for Ava: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
+}
+```
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Norms for Liam: No norms yet
+Decision for Liam: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Norms for Ethan: No norms yet
+Decision for Ethan: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Inheritance Phase (Next Generation):
+
+Creating offspring for Emma with 0/0 inherited memories
+
+Creating offspring for Sophia with 0/0 inherited memories
+
+Creating offspring for Ava with 0/0 inherited memories
+
+Creating offspring for Liam with 0/0 inherited memories
+
+Creating offspring for Ethan with 0/0 inherited memories
+Social memory inherited to next generation
+
+--------------------------------
+--------------------------------
+Starting Run 5/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Norms for Emma: No norms yet
+Decision for Emma: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too soon could quickly deplete the lake."
+}
+```
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Norms for Sophia: No norms yet
+Decision for Sophia: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the lake responds. I don't want to deplete the lake too quickly."
+}
+```
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Norms for Ava: No norms yet
+Decision for Ava: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
+}
+```
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Norms for Liam: No norms yet
+Decision for Liam: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Norms for Ethan: No norms yet
+Decision for Ethan: ```json
+{
+  "fish_to_catch": 20,
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how the others react. Taking too much too early could quickly deplete the lake."
+}
+```
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+***System collapsed with 0 fish remaining! Simulation ending early.***

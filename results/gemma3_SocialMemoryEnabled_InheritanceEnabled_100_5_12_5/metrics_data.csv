@@ -1,4 +1,4 @@
-run,month,fish_before,fish_after,total_caught,sustainability_threshold,Ava_caught,Ava_over_threshold,Mason_caught,Mason_over_threshold,Jake_caught,Jake_over_threshold,Emma_caught,Emma_over_threshold,Ethan_caught,Ethan_over_threshold
+run,month,fish_before,fish_after,total_caught,sustainability_threshold,Emma_caught,Emma_over_threshold,Sophia_caught,Sophia_over_threshold,Ava_caught,Ava_over_threshold,Liam_caught,Liam_over_threshold,Ethan_caught,Ethan_over_threshold
 1,1,100,0,100,0,20,True,20,True,20,True,20,True,20,True
 2,1,100,0,100,0,20,True,20,True,20,True,20,True,20,True
 3,1,100,0,100,0,20,True,20,True,20,True,20,True,20,True

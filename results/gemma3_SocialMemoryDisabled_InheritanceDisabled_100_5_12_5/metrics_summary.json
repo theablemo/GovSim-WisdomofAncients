@@ -3,12 +3,12 @@
   "survival_rate": 0.0,
   "average_gain": 33.333333333333336,
   "individual_gains": {
+    "Ethan": 20.0,
+    "Mason": 20.0,
     "Emma": 20.0,
-    "Liam": 20.0,
-    "Sophia": 20.0,
+    "Jake": 20.0,
     "Ava": 20.0,
-    "total": 100.0,
-    "Jake": 20.0
+    "total": 100.0
   },
   "efficiency": 16.666666666666664,
   "equality": 66.66666666666667,
