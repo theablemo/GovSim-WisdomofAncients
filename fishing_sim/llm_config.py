@@ -1,4 +1,4 @@
-from typing import Literal, Optional
+from typing import Literal, Optional, TypeVar, Type
 from langchain_openai import AzureOpenAIEmbeddings
 from langchain_ollama import OllamaLLM
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -6,10 +6,14 @@ from langchain_openai import AzureChatOpenAI
 import os
 from dotenv import load_dotenv
 import random
+from pydantic import BaseModel
 from .config import SimulationConfig
 
 # Load environment variables
 load_dotenv(override=True)
+
+# Type variable for Pydantic models
+T = TypeVar("T", bound=BaseModel)
 
 
 class LLMConfig:
@@ -76,3 +80,38 @@ class LLMConfig:
             return response
         else:
             return str(response)
+
+    def extract_json_response(
+        self, response, model_class: Type[T], default: Optional[T] = None
+    ) -> T:
+        """Extract and parse JSON from LLM response into a Pydantic model.
+
+        Args:
+            response: The raw LLM response
+            model_class: Pydantic model class to parse the response into
+            default: Default instance to return if parsing fails
+
+        Returns:
+            An instance of the specified Pydantic model
+        """
+        try:
+            # Get standardized response content
+            cleaned_content = self.get_response_content(response).strip()
+
+            # Clean up any markdown formatting
+            if cleaned_content.startswith("```json"):
+                cleaned_content = cleaned_content[7:]  # Remove ```json
+            if cleaned_content.endswith("```"):
+                cleaned_content = cleaned_content[:-3]  # Remove ```
+            cleaned_content = cleaned_content.strip()
+
+            # Parse the JSON response using the provided model class
+            return model_class.model_validate_json(cleaned_content)
+
+        except Exception as e:
+            if self.config.verbose:
+                print(f"Error parsing {model_class.__name__} from response: {e}")
+
+            if default is not None:
+                return default
+            raise  # Re-raise the exception if no default is provided

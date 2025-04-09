@@ -103,7 +103,11 @@ class SocialMemory:
         for doc in all_docs:
             if isinstance(doc, Document):
                 # Calculate recency score: 1.0 for current month, decreasing by 0.1 each month
-                months_old = self.current_month - doc.metadata["last_updated"]
+                # Use last_updated if available, otherwise fall back to month_added
+                last_updated = doc.metadata.get(
+                    "last_updated", doc.metadata.get("month_added", self.current_month)
+                )
+                months_old = self.current_month - last_updated
                 recency = max(0.1, 1.0 - (months_old * 0.1))
                 doc.metadata["recency"] = recency
                 doc.metadata["last_updated"] = self.current_month
@@ -153,9 +157,9 @@ class SocialMemory:
             )
         return instance
 
-    def inherit_to_next_generation(self) -> "SocialMemory":
+    def inherit_to_next_generation(self, llm_config: LLMConfig) -> "SocialMemory":
         """Create a new instance with the same memory store"""
-        new_memory = SocialMemory(self.config, self.embeddings)
+        new_memory = SocialMemory(self.config, llm_config)
         new_memory.memory = self.memory
         new_memory.current_month = self.current_month
         return new_memory

@@ -13,6 +13,13 @@ class FishingDecision(BaseModel):
     reasoning: str = Field(description="The reasoning behind the decision")
 
 
+class Reflection(BaseModel):
+    """Model for structured reflection output"""
+
+    running_memory: str = Field(description="A short-term running memory from the conversation")
+    insight: str = Field(description="A deeper insight to remember for future decisions")
+
+
 class Fisherman:
     def __init__(
         self,
@@ -38,17 +45,24 @@ class Fisherman:
 
         self.system_prompt = f"""
         You are {self.name}, a fisherman in a small fishing community. 
-        You fish in the lake along with {config.num_fishermen} other fishermen named {other_fishermen_str}.
-        The lake has a population capacity of {config.lake_capacity} fish. 
-        At the beginning of each month, each fisherman decides how many fish to take out of the lake between 0 and {config.lake_capacity}. 
-        At the end of the month, the remaining fish reproduce at a rate of {config.reproduction_rate}x up to the lake capacity. 
-        For each fish caught, a fisherman earns one thousand dollars. 
-        Each fisherman's goal is to optimize his income in the long run over many months. 
-        At the end of each month, the number of fish caught by each fisherman will be revealed, 
+        You fish in the lake along with {config.num_fishermen - 1} other fishermen named {other_fishermen_str}.
+        The lake has a population capacity of {config.lake_capacity} tons of fish. 
+        
+        RULES: At the beginning of each month, each fisherman decides how many fish to take out of the lake between 0 and {config.lake_capacity} tons. 
+        At the end of the month, the remaining fish reproduce at a rate of {config.reproduction_rate}x up to the lake capacity.
+        For example, if there are 90 tons of fish at the beginning of the month and the five fishermen catch a total of 30 tons, 
+        there will be 60 tons of fish left at the end of the month before reproduction, and 100 tons after reproduction.  
+        Keep in mind that the lake will collapse as soon as the number of fish remaining gets below {config.collapse_threshold} tons.
+        
+        GOAL: For each ton of fish caught, a fisherman earns one thousand dollars. 
+        Each fisherman's goal is to optimize their income in the long run over many months.
+        So while your goal is to maximize your income, you should also consider the long-term sustainability of the lake,
+        keeping in mind that there are other fishermen who will also be making decisions with the same goal.
+        
+        At the end of each month, the number of tons of fish caught by each fisherman will be revealed, 
         and the fishermen will have the opportunity to communicate with each other. 
         They can use this as an opportunity to negotiate and persuade others to influence their behavior in the next month. 
-        For example, if there are 90 tons of fish at the beginning of the month and the five fishermen catch a total of 30 fish, 
-        there will be 60 tons of fish left at the end of the month before reproduction, and 100 tons after reproduction. 
+        
         As the conversation goes on, you will pile up memories and social norms.
         You have access to your recent memories, deeper insights {"and the community's social norms" if config.enable_social_memory else ""} 
         to help guide your decisions. Remember that your memories and social norms may be empty at the beginning, so don't hallucinate and don't make up information."""
@@ -99,7 +113,7 @@ class Fisherman:
                 (
                     "human",
                     """Current situation:
-                        - Current amount of fish in the lake: {current_fish}
+                        - Current amount of fish in the lake: {current_fish} tons
                         - Your recent chronological memories: {running_memories_text}
                         - Your deeper insights: {insights_text}
                         {social_norms_section}
@@ -137,26 +151,16 @@ class Fisherman:
         try:
             if self.config.verbose:
                 print(f"Decision for {self.name}: {self.llm_config.get_response_content(response)}")
-            # Get standardized response content
-            cleaned_content = self.llm_config.get_response_content(response).strip()
-            if cleaned_content.startswith("```json"):
-                cleaned_content = cleaned_content[7:]  # Remove ```json
-            if cleaned_content.endswith("```"):
-                cleaned_content = cleaned_content[:-3]  # Remove ```
-            cleaned_content = cleaned_content.strip()
 
-            # Parse the JSON response
-            decision = FishingDecision.model_validate_json(cleaned_content)
-            # Save decision to running memory
-            # self.running_memory.add_memory(
-            #     f"Decided to catch {decision.fish_to_catch} fish when lake had {current_fish} fish. Reasoning: {decision.reasoning}"
-            # )
+            # Use the centralized JSON extraction method
+            default_decision = FishingDecision(fish_to_catch=0, reasoning="Error making decision")
+            decision = self.llm_config.extract_json_response(
+                response, FishingDecision, default=default_decision
+            )
+
             return decision.model_dump()
         except Exception as e:
             print(f"Error parsing decision for {self.name}: {e}. Will catch 0 fish.")
-            # self.running_memory.add_memory(
-            #     f"Error making decision when lake had {current_fish} fish. Defaulted to catching 0."
-            # )
             return {"fish_to_catch": 0, "reasoning": "Error making decision"}
 
     def discuss(self, context: Dict[str, Any], social_memory: SocialMemory) -> str:
@@ -272,19 +276,20 @@ class Fisherman:
                         Summary of the current situation (stated by the mayor):
                         {mayor_message}
                         
-                        You should write two parts, clearly separated:
-                        1. Write one sentence about something from the conversation that you need to remember
-                        chronologically for your short-term planning. This will be saved as a running memory.
-                        2. Write one sentence with a deeper insight that you want to remember
-                        and can use in your future decision making. This will be saved as an insight memory.
+                        Task: Identify two pieces of information from the conversation:
+                        1. A short-term running memory for your chronological planning
+                        2. A deeper insight that you want to remember for future decision making
                         
-                        Format your response exactly like this:
-                        Running memory: [Your one sentence running memory here]
-                        Insight: [Your one sentence insight here]
+                        Output format: Always respond with a valid JSON object containing:
+                        - 'running_memory': a string with your one-sentence running memory
+                        - 'insight': a string with your one-sentence insight
+                        
+                        Example: {{"running_memory": "Alice caught 10 fish this month which was lower than everyone else.", "insight": "Sustainable fishing around 20% of lake capacity seems to yield the best long-term results."}}
                         
                         IMPORTANT: 
-                        - Keep it concise.
-                        - Do not include any other text or formatting.
+                        - Do not include any markdown formatting (no ```json or ```)
+                        - Do not include any other text before or after the JSON object
+                        - The response must be a valid JSON object that can be parsed directly
                     """,
                 ),
             ]
@@ -292,25 +297,23 @@ class Fisherman:
 
         chain = prompt | self.llm_config.llm
         response = chain.invoke({"conversation": conversation, "mayor_message": mayor_message})
-        full_response = self.llm_config.get_response_content(response)
 
-        # Parse the two parts
         try:
-            running_memory_part = ""
-            insight_part = ""
+            # Use the centralized JSON extraction method
+            default_reflection = Reflection(
+                running_memory="Reflected on the conversation but had trouble articulating specific insights.",
+                insight="Reflected on the conversation but had trouble articulating specific insights.",
+            )
 
-            lines = full_response.strip().split("\n")
-            for line in lines:
-                if line.startswith("Running memory:"):
-                    running_memory_part = line[len("Running memory:") :].strip()
-                elif line.startswith("Insight:"):
-                    insight_part = line[len("Insight:") :].strip()
+            reflection = self.llm_config.extract_json_response(
+                response, Reflection, default=default_reflection
+            )
 
             # Store the new memories
-            self.running_memory.add_memory(running_memory_part, month)
-            self.insight_memory.add_memory(insight_part)
+            self.running_memory.add_memory(reflection.running_memory, month)
+            self.insight_memory.add_memory(reflection.insight)
 
-            return running_memory_part, insight_part
+            return reflection.running_memory, reflection.insight
         except Exception as e:
             print(f"Error parsing reflection for {self.name}: {e}")
             default_memory = (

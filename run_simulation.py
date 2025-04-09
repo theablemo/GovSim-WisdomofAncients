@@ -109,7 +109,6 @@ def main():
     # Run simulation with configuration
     simulation = FishingSimulation(config)
     simulation.run_simulation()
-    simulation.save_logs()
     simulation.save_results()
 
     # Print summary

@@ -1,0 +1,218 @@
+
+--------------------------------
+--------------------------------
+Starting Run 1/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how it affects the reproduction rate. Since there are currently 100 fish in the lake, I'm not taking too many risks by catching 20."}
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Decision for Emma: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to test the waters and see how many are available. Since it's the first month, I don't have any recent memories or insights to guide my decision, so I'll start with a moderate number of fish."}
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Decision for Sophia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to start with a conservative approach and see how the lake responds. With no recent memories or insights, it's hard to make an informed decision. I'll try to get a feel for the lake's dynamics and adjust my strategy accordingly."}
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Decision for Ava: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how it responds to my actions. Since there are currently 100 fish in the lake, I think this is a good starting point."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to start with a moderate amount and see how it goes. Since there are 100 fish in the lake, I think this is a reasonable number. I don't have any recent memories or insights yet, so I'll just take a cautious approach."}
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Resetting fishermen for next run (no inheritance):
+
+--------------------------------
+--------------------------------
+Starting Run 2/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I don't have much information to go on yet and want to get a feel for the lake's dynamics. I'll start with a moderate number of fish and see how it goes."}
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Decision for Emma: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how the reproduction rate affects the number of fish available in future months. Since there are currently 100 fish, I'm not overfishing yet, but I still want to earn some money."}
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Decision for Sophia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how it affects my income. Since there are 100 fish initially, I'm not worried about overfishing yet."}
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Decision for Ava: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how it reproduces. Since there are no recent memories or insights yet, I'll start with a moderate number of fish to catch."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a good start and see how many fish are left in the lake. Since there's no recent memory or insight yet, I'll play it safe and take a moderate number of fish."}
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Resetting fishermen for next run (no inheritance):
+
+--------------------------------
+--------------------------------
+Starting Run 3/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to start with a moderate amount and see how the lake responds. Since there are no recent memories or insights yet, I'll take a cautious approach and adjust my strategy based on the outcome."}
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Decision for Emma: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I don't have enough information yet to make an informed decision. I want to see how the other fishermen behave and what kind of impact it has on the lake's population before making any adjustments."}
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Decision for Sophia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how it affects the reproduction rate. Since there are no recent memories or insights yet, I'll start with a moderate amount of fishing to gauge the impact."}
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Decision for Ava: {"fish_to_catch": 25, "reasoning": "I will catch 25 fish because I don't have enough information to make an informed decision yet. I'll start with a moderate number of fish and see how the lake responds."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how it reacts. Since there are no recent memories or insights yet, I'll start with a moderate number of fish to avoid overfishing. This decision allows me to learn more about the lake's dynamics and adjust my strategy in future months."}
+
+>>>>>
+Total fish caught: 105
+Fish remaining after fishing: -5
+<<<<<
+
+***System collapsed with -5 fish remaining! Simulation ending early.***
+
+Resetting fishermen for next run (no inheritance):
+
+--------------------------------
+--------------------------------
+Starting Run 4/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how it affects the reproduction rate. Since there are currently 100 fish in the lake, I'm starting with a relatively small number to gauge the impact."}
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Decision for Emma: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get started with earning some income and see how the lake responds. Since there are currently 100 fish in the lake, I'm not worried about overfishing yet."}
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Decision for Sophia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how it affects the reproduction rate. Since there are currently 100 fish in the lake, I'm not too concerned about overfishing yet."}
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Decision for Ava: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to start with a moderate amount and see how the lake responds. Since there are no recent memories or insights yet, I'll take a cautious approach and adjust my strategy as we gather more information."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to test the waters and see how many are available. Since there's no recent memory or insight to guide my decision, I'll start with a moderate amount to get a feel for the lake's population."}
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Resetting fishermen for next run (no inheritance):
+
+--------------------------------
+--------------------------------
+Starting Run 5/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to start with a moderate number and see how the lake responds. Since there are no recent memories or insights yet, I'll take a cautious approach and adjust my strategy based on the outcome."}
+
+Insights for Emma: No insights yet
+Recent memories for Emma: No recent memories yet
+Decision for Emma: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for the lake's population and see how it affects the reproduction rate. Since there are currently 100 fish in the lake, I think this is a good starting point to test the waters."}
+
+Insights for Sophia: No insights yet
+Recent memories for Sophia: No recent memories yet
+Decision for Sophia: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to test the waters and see how many are available. Since it's the first month, I don't have any recent memories or insights to guide my decision, so I'll start with a moderate number of fish."}
+
+Insights for Ava: No insights yet
+Recent memories for Ava: No recent memories yet
+Decision for Ava: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I want to get a feel for how many are in the lake and see if there's an opportunity to make some money. Since it's the first month, I don't have any recent memories or insights to guide my decision yet."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "I will catch 20 fish because I don't have any recent memories to guide my decision yet. Since there are 100 fish in the lake, it seems like a good starting point to see how many we can catch without overfishing. I'm hoping that this amount will give me some insight into the reproduction rate and help me adjust my strategy for future months."}
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+***System collapsed with 0 fish remaining! Simulation ending early.***

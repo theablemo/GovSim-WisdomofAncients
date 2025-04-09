@@ -1,8 +1,16 @@
-from typing import List, Dict
+from typing import List, Dict, Tuple
 from langchain.prompts import ChatPromptTemplate
 from fishing_sim.config import SimulationConfig
 from fishing_sim.memory import SocialMemory
 from .llm_config import LLMConfig
+from pydantic import BaseModel, Field
+
+
+class NormProposal(BaseModel):
+    """Model for structured norm proposal output"""
+
+    norm: str = Field(description="The proposed social norm")
+    importance: float = Field(description="The importance score of the norm", ge=0.0, le=1.0)
 
 
 class Mayor:
@@ -72,7 +80,7 @@ class Mayor:
         )
         return self.llm_config.get_response_content(response)
 
-    def update_norms(self, conversation: str, social_memory: SocialMemory) -> tuple[str, float]:
+    def update_norms(self, conversation: str, social_memory: SocialMemory) -> Tuple[str, float]:
         """Analyze the conversation and propose a new or updated norm with importance score"""
         # Get relevant past norms
         past_norms = social_memory.retrieve_norms(
@@ -82,7 +90,7 @@ class Mayor:
         # Format past norms for the prompt
         norms_text = "\n".join(
             [
-                f"- {doc.page_content} (Importance: {doc.metadata['importance']:.1f}, Recency: {doc.metadata['recency']:.1f})"
+                f"- {doc.page_content} (Importance: {doc.metadata.get('importance', 0.5):.1f}, Recency: {doc.metadata.get('recency', 1.0):.1f})"
                 for doc in past_norms
             ]
         )
@@ -101,14 +109,16 @@ class Mayor:
                         
                         Task: Propose a new social norm or update to existing norms based on the conversation.
                         
-                        Output format: Respond with:
-                        - 'Norm:' followed by your proposed norm
-                        - 'Importance:' followed by an importance score between 0.0 and 1.0
+                        Output format: When proposing norms, always respond with a valid JSON object containing:
+                        - 'norm': a string with your proposed norm
+                        - 'importance': a float between 0.0 and 1.0 indicating the importance
+                        
+                        Example: {{"norm": "Each fisherman should catch no more than 20% of the lake capacity", "importance": 0.8}}
                         
                         IMPORTANT: 
-                        - Keep your response concise and to the point.
-                        - The norm should reflect the community's discussions.
-                        - The importance score must be between 0.0 and 1.0.
+                        - Do not include any markdown formatting (no ```json or ```)
+                        - Do not include any other text before or after the JSON object
+                        - The response must be a valid JSON object that can be parsed directly
                     """,
                 ),
             ]
@@ -122,25 +132,29 @@ class Mayor:
             }
         )
 
-        # Parse the response
-        lines = self.llm_config.get_response_content(response).split("\n")
-        norm = ""
-        importance = 0.5  # Default importance
+        try:
+            # Use the centralized JSON extraction method
+            default_norm = NormProposal(
+                norm="Fishermen should aim for sustainable fishing practices.", importance=0.5
+            )
 
-        for line in lines:
-            if line.startswith("Norm:"):
-                norm = line[6:].strip()
-            elif line.startswith("Importance:"):
-                try:
-                    importance = float(line[11:].strip())
-                    importance = max(0.0, min(1.0, importance))  # Clamp between 0 and 1
-                except ValueError:
-                    pass
+            norm_proposal = self.llm_config.extract_json_response(
+                response, NormProposal, default=default_norm
+            )
 
-        if self.config.verbose:
-            print(f'Mayor extracted norm: "{norm}" with importance: {importance}')
+            if self.config.verbose:
+                print(
+                    f'Mayor extracted norm: "{norm_proposal.norm}" with importance: {norm_proposal.importance}'
+                )
 
-        return norm, importance
+            return norm_proposal.norm, norm_proposal.importance
+
+        except Exception as e:
+            print(f"Error parsing norm proposal: {e}")
+            return (
+                "Fishermen should aim for sustainable fishing practices.",
+                0.5,
+            )  # Default fallback
 
     def _format_decisions(self, decisions: Dict[str, int]) -> str:
         """Format the decisions dictionary into a readable string"""

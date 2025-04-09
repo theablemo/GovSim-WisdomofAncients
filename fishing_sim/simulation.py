@@ -12,6 +12,7 @@ from .mayor import Mayor
 from .memory import SocialMemory
 from .llm_config import LLMConfig
 import pickle
+import numpy as np
 
 
 class FishingSimulation:
@@ -215,21 +216,6 @@ class FishingSimulation:
                         if self.config.verbose:
                             print(f"{fisherman.name}: {response}")
 
-                # Update social norms and recency scores if social memory is enabled
-                if self.config.enable_social_memory:
-                    self.social_memory.update_recency_scores()
-                    if self.config.verbose:
-                        print("\nSocial Norm Update:")
-                    new_norm, importance = self.mayor.update_norms(
-                        "\n".join(conversation), self.social_memory
-                    )
-                    self.social_memory.add_norm(new_norm, importance)
-                    conversation_log["new_norm"] = new_norm
-                    conversation_log["norm_importance"] = importance
-
-                    if self.config.verbose:
-                        print(f"New norm added: {new_norm} (Importance: {importance:.2f})")
-
                 # Reflection phase
                 if self.config.verbose:
                     print("\n>>>>>")
@@ -245,6 +231,21 @@ class FishingSimulation:
                     if self.config.verbose:
                         print(f"{fisherman.name}'s running memory: {running_memory}")
                         print(f"{fisherman.name}'s insight: {insight}")
+
+                # Update social norms and recency scores if social memory is enabled
+                if self.config.enable_social_memory:
+                    self.social_memory.update_recency_scores()
+                    if self.config.verbose:
+                        print("\nSocial Norm Update:")
+                    new_norm, importance = self.mayor.update_norms(
+                        "\n".join(conversation), self.social_memory
+                    )
+                    self.social_memory.add_norm(new_norm, importance)
+                    conversation_log["new_norm"] = new_norm
+                    conversation_log["norm_importance"] = importance
+
+                    if self.config.verbose:
+                        print(f"New norm added: {new_norm} (Importance: {importance:.2f})")
 
                 # Fish reproduction at the end of the month
                 if self.config.verbose:
@@ -281,7 +282,9 @@ class FishingSimulation:
                     self.fishermen = new_fishermen
 
                     # Inherit social memory
-                    self.social_memory = self.social_memory.inherit_to_next_generation()
+                    # self.social_memory = self.social_memory.inherit_to_next_generation(
+                    #     self.llm_config
+                    # )
                     if self.config.verbose:
                         print("Social memory inherited to next generation")
                 else:
@@ -337,20 +340,6 @@ class FishingSimulation:
                 break
 
         return max_sustainable_extraction
-
-    def save_logs(self):
-        """Save simulation logs to CSV"""
-        os.makedirs(self.config.log_dir, exist_ok=True)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = os.path.join(self.config.log_dir, f"simulation_logs_{timestamp}.csv")
-
-        df = pd.DataFrame(self.logs)
-        df.to_csv(filename, index=False)
-
-        if self.config.verbose:
-            print("\n>>>>>")
-            print(f"Logs saved to {filename}")
-            print("<<<<<")
 
     def save_results(self):
         """Save detailed simulation results to the results directory"""
@@ -514,92 +503,139 @@ class FishingSimulation:
             json.dump(metrics_serializable, f, indent=2)
 
     def calculate_metrics(self, df: pd.DataFrame) -> Dict[str, Any]:
-        """Calculate metrics based on the simulation data"""
-        # Extract needed data
-        total_runs = self.config.num_runs
-        total_months = self.config.num_months
+        """
+        Calculate metrics by:
+        1) Grouping by run
+        2) Computing each run's metrics
+        3) Averaging them across runs
+        """
 
-        # Get unique fishermen names across all runs
+        run_ids = df["run"].unique()
+        run_results = []
+
+        # --- We identify all fisherman columns just once ---
         fishermen_columns = [col for col in df.columns if col.endswith("_caught")]
         fishermen_names = [col.replace("_caught", "") for col in fishermen_columns]
-        fishermen_names = list(set(fishermen_names))  # Get unique names
 
-        # 1. Survival Time (m) - longest period where shared resource remains above collapse threshold
-        # Group by run and find the last month for each run
-        last_months = df.groupby("run")["month"].max().reset_index()
-        survival_times = last_months["month"]
-        # Use max instead of mean to match the formula definition
-        survival_time = survival_times.max()
+        for run_id in run_ids:
+            run_df = df[df["run"] == run_id].copy()
 
-        # 2. Survival Rate (q) - proportion of runs which achieve maximum survival time (all months)
-        max_survival_runs = sum(survival_times == total_months)
-        survival_rate = (max_survival_runs / total_runs) * 100
+            # -----------------------
+            # (1) SURVIVAL TIME, SURVIVAL RATE
+            # -----------------------
+            # If you keep track of the resource level each month (e.g. in run_df["resource"]),
+            # find the largest month index where the resource is still above the collapse threshold.
+            # If you only store 'month' in the dataframe, you can do e.g.:
+            last_month = run_df["month"].max()
+            # But more accurately, you might do:
+            #   valid_months = run_df[run_df["resource"] > self.config.collapse_threshold]["month"]
+            #   survival_time_this_run = valid_months.max() if not valid_months.empty else 0
+            # For simplicity, assume we just use the final month as "survived" if it never collapsed:
+            survival_time_this_run = last_month
+            # The run "fully survives" if it reaches num_months without collapse:
+            survival_rate_this_run = (
+                1.0 if survival_time_this_run == self.config.num_months else 0.0
+            )
 
-        # 3. Total Gain (R_i) for each agent
-        total_gains = {}
-        for name in fishermen_names:
-            # Handle possible missing data for some runs
-            if f"{name}_caught" in df.columns:
-                total_gains[name] = df[f"{name}_caught"].sum()
-            else:
-                total_gains[name] = 0
-
-        # Calculate average gain across all fishermen
-        avg_gain = sum(total_gains.values()) / len(fishermen_names)
-
-        # 4. Efficiency (u)
-        # Get initial sustainability threshold
-        initial_fish = self.config.lake_capacity
-        initial_sustainability_threshold = self.calculate_sustainability_threshold(initial_fish)
-
-        # Calculate total catch across all agents
-        total_catch = df["total_caught"].sum()
-
-        # Maximum possible efficiency is achieved when resource is consistently harvested at threshold
-        max_efficiency = total_months * initial_sustainability_threshold
-
-        # Calculate efficiency
-        efficiency = 1 - max(0, (max_efficiency - total_catch)) / max_efficiency
-        efficiency = efficiency * 100  # Convert to percentage
-
-        # 5. Inequality (e) - using Gini coefficient
-        # Since we already have total gains for each fisherman, we can calculate Gini directly
-        total_gain_values = list(total_gains.values())
-        sum_abs_diffs = 0
-        total_sum = sum(total_gain_values)
-
-        for i in range(len(total_gain_values)):
-            for j in range(len(total_gain_values)):
-                sum_abs_diffs += abs(total_gain_values[i] - total_gain_values[j])
-
-        inequality = (
-            1 - (sum_abs_diffs / (2 * len(total_gain_values) * total_sum)) if total_sum > 0 else 0
-        )
-        inequality = inequality * 100  # Convert to percentage
-
-        # 6. Over-usage (o) - percentage of actions that exceed sustainability threshold
-        # Count individual fisherman catches exceeding the sustainability threshold (not fair share)
-        over_threshold_count = 0
-        total_actions = 0
-
-        for _, row in df.iterrows():
-            threshold = row["sustainability_threshold"]
+            # -----------------------
+            # (2) TOTAL GAINS & AVERAGE GAIN
+            # -----------------------
+            # Sum up each fisherman’s catch for this run:
+            fisherman_gains = {}
             for name in fishermen_names:
-                if f"{name}_caught" in row and not pd.isna(row[f"{name}_caught"]):
-                    total_actions += 1
-                    # Check if individual catch exceeds threshold (not fair share)
-                    if row[f"{name}_caught"] > threshold:
-                        over_threshold_count += 1
+                fisherman_gains[name] = run_df[f"{name}_caught"].sum()
 
-        # Calculate over_usage using |I| * m as denominator (total possible actions)
-        survival_time_int = int(survival_time)  # Get integer value for calculation
-        over_usage = (over_threshold_count / total_actions) * 100 if total_actions > 0 else 0
+            # Mean across fishermen (if you want the “average gain per fisherman”):
+            average_gain_this_run = sum(fisherman_gains.values()) / len(fishermen_names)
+
+            # -----------------------
+            # (3) EFFICIENCY
+            # -----------------------
+            # Compare total catch to the maximum "ideal" catch that keeps the resource stable.
+            # For a simple measure, compare to "num_months * sustainability_threshold(initial_fish)".
+            total_catch_this_run = run_df["total_caught"].sum()
+            initial_sustainability_thresh = self.calculate_sustainability_threshold(
+                self.config.lake_capacity
+            )
+            max_possible = self.config.num_months * initial_sustainability_thresh
+
+            efficiency_this_run = 1 - max(0, (max_possible - total_catch_this_run)) / max_possible
+            efficiency_this_run *= 100
+
+            # -----------------------
+            # (4) INEQUALITY (GINI)
+            # -----------------------
+            # Compute Gini for the final totals of each fisherman in this single run:
+            total_gain_values = list(fisherman_gains.values())
+            sum_all = sum(total_gain_values)
+            if sum_all <= 0 or len(total_gain_values) < 2:
+                inequality_this_run = 0
+            else:
+                sum_abs = 0
+                for i in range(len(total_gain_values)):
+                    for j in range(len(total_gain_values)):
+                        sum_abs += abs(total_gain_values[i] - total_gain_values[j])
+                # 1 - sum_of_diffs / (2*N*sum_all)
+                inequality_this_run = 1 - (sum_abs / (2 * len(total_gain_values) * sum_all))
+                inequality_this_run *= 100
+
+            # -----------------------
+            # (5) OVER‐USAGE
+            # -----------------------
+            # Over‐usage is the fraction of months for which total_caught > sustainability_threshold
+            # at that time.  *Group total*, not each person’s catch individually.
+            # We'll do one row per month in this run:
+            # (assuming each month has exactly one row with the sum in 'total_caught')
+            # If your DataFrame has multiple rows per month (one per fisherman), then
+            # you'd first group by month, or look for 'if row['month'] changes ...'
+            over_count = 0
+            total_months_run = 0
+            for m in run_df["month"].unique():
+                month_rows = run_df[run_df["month"] == m]
+                # we assume there's exactly one row that has total_caught for the group:
+                row = month_rows.iloc[0]
+                if row["total_caught"] > row["sustainability_threshold"]:
+                    over_count += 1
+                total_months_run += 1
+
+            over_usage_this_run = (
+                (over_count / total_months_run) * 100 if total_months_run > 0 else 0
+            )
+
+            # Save results
+            run_results.append(
+                {
+                    "survival_time": survival_time_this_run,
+                    "survival_rate": survival_rate_this_run,
+                    "average_gain": average_gain_this_run,
+                    "efficiency": efficiency_this_run,
+                    "inequality": inequality_this_run,
+                    "over_usage": over_usage_this_run,
+                    "fisherman_gains": fisherman_gains,
+                }
+            )
+
+        # Now average across runs
+        survival_time = np.mean([r["survival_time"] for r in run_results])
+        survival_rate = np.mean([r["survival_rate"] for r in run_results]) * 100
+        average_gain = np.mean([r["average_gain"] for r in run_results])
+        efficiency = np.mean([r["efficiency"] for r in run_results])
+        inequality = np.mean([r["inequality"] for r in run_results])
+        over_usage = np.mean([r["over_usage"] for r in run_results])
+
+        # Optionally, aggregate fisherman gains across runs (e.g. mean per run):
+        all_names = set()
+        for rr in run_results:
+            all_names.update(rr["fisherman_gains"].keys())
+        final_gains = {}
+        for name in all_names:
+            final_gains[name] = np.mean([rr["fisherman_gains"][name] for rr in run_results])
 
         return {
             "survival_time": survival_time,
             "survival_rate": survival_rate,
-            "average_gain": avg_gain,
-            "individual_gains": total_gains,
+            "average_gain": average_gain,
+            "individual_gains": final_gains,
             "efficiency": efficiency,
             "equality": inequality,
             "over_usage": over_usage,
