@@ -1,0 +1,17 @@
+{
+  "survival_time": 2.0,
+  "survival_rate": 0.0,
+  "average_gain": 50.13333333333333,
+  "individual_gains": {
+    "Isabella": 32.0,
+    "total": 150.4,
+    "Ava": 31.4,
+    "Mason": 30.4,
+    "Emma": 32.0,
+    "Ethan": 24.6
+  },
+  "efficiency": 25.06666666666667,
+  "equality": 62.49992991547583,
+  "over_usage": 100.0,
+  "running_time_seconds": 227.8644163608551
+}

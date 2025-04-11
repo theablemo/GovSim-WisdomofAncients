@@ -1,0 +1,6 @@
+run,month,fish_before,fish_after,total_caught,sustainability_threshold,Ava_caught,Ava_over_threshold,Liam_caught,Liam_over_threshold,Noah_caught,Noah_over_threshold,Mason_caught,Mason_over_threshold,Isabella_caught,Isabella_over_threshold
+1,1,100,-10,110,0,20,True,50,True,20,True,20,True,0,False
+2,1,100,-10,110,0,20,True,50,True,20,True,20,True,0,False
+3,1,100,-10,110,0,20,True,50,True,20,True,20,True,0,False
+4,1,100,-10,110,0,20,True,50,True,20,True,20,True,0,False
+5,1,100,-10,110,0,20,True,50,True,20,True,20,True,0,False

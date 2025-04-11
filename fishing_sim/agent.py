@@ -56,10 +56,12 @@ class Fisherman:
         
         GOAL: For each ton of fish caught, a fisherman earns one thousand dollars. 
         Each fisherman's goal is to optimize their income in the long run over many months.
-        So while your goal is to maximize your income, you should also consider the long-term sustainability of the lake,
+        Your goal is to maximize your income and gain as much as possible and collectively,
+        harvest as much fish as possible without depleting the lake and without causing it to collapse, saving some breathing room for reproduction.
+        So, while your goal is to maximize your income, you should also consider the long-term sustainability of the lake,
         keeping in mind that there are other fishermen who will also be making decisions with the same goal.
         
-        At the end of each month, the number of tons of fish caught by each fisherman will be revealed, 
+        At the end of each month, the number of tons of fish caught by each fisherman and the number of tons of fish remaining in the lake will be revealed, 
         and the fishermen will have the opportunity to communicate with each other. 
         They can use this as an opportunity to negotiate and persuade others to influence their behavior in the next month. 
         
@@ -69,9 +71,15 @@ class Fisherman:
 
     def make_decision(self, current_fish: int, social_memory: SocialMemory) -> Dict[str, Any]:
         """Make a decision about how many fish to catch"""
+
+        retrieval_prompt = (
+            f"How many fish should I catch when there are {current_fish} fish in the lake?"
+        )
+
         # Retrieve relevant memories and norms
         insights = self.insight_memory.retrieve_memories(
-            f"How many fish should I catch when there are {current_fish} fish in the lake?", k=2
+            retrieval_prompt,
+            k=2,
         )
         insights_text = (
             "\n".join([m.page_content for m in insights])
@@ -91,7 +99,7 @@ class Fisherman:
         norms_text = ""
         if self.config.enable_social_memory:
             social_norms = social_memory.retrieve_norms(
-                f"How many fish should be caught when there are {current_fish} fish in the lake?",
+                retrieval_prompt,
                 k=2,
             )
             norms_text = (
@@ -195,12 +203,10 @@ class Fisherman:
             )
 
         if self.config.verbose:
-            print(f"\nInsights for {self.name}: {len(insights)} insights retrieved")
-            print(f"Recent memories for {self.name}: {len(recent_memories)} recent memories")
+            print(f"\nInsights for {self.name}: {insights_text}")
+            print(f"Recent memories for {self.name}: {running_memories_text}")
             if self.config.enable_social_memory:
-                print(
-                    f"Norms for {self.name}: {len(social_norms) if social_norms else 0} norms retrieved"
-                )
+                print(f"Norms for {self.name}: {norms_text}")
 
         # Create discussion prompt
         prompt = ChatPromptTemplate.from_messages(
@@ -214,8 +220,9 @@ class Fisherman:
                         Conversation so far: 
                         {conversation}
                         
-                        Your recent chronological memories: {running_memories_text}
-                        Your deeper insights: {insights_text}
+                        Your memories: 
+                        - Your recent chronological memories: {running_memories_text}
+                        - Your deeper insights: {insights_text}
                         {social_norms_section}
 
                         Task: What would you say next in the group chat? Ensure the conversation flows naturally and avoids repetition. Keep it natural and conversational.
@@ -270,21 +277,23 @@ class Fisherman:
                 ("system", self.system_prompt),
                 (
                     "human",
-                    """Reflect on this conversation and identify two things:
+                    """Summary of the current situation (stated by the mayor):
+                        {mayor_message}
+                    
+                        The conversation you and other fishermen had:
                         {conversation}
                         
-                        Summary of the current situation (stated by the mayor):
-                        {mayor_message}
-                        
-                        Task: Identify two pieces of information from the conversation:
-                        1. A short-term running memory for your chronological planning
-                        2. A deeper insight that you want to remember for future decision making
+                        Task: Based on the conversation and the current situation, identify two pieces of information:
+                        1. A short-term running memory of the conversation and the situation for your chronological planning
+                        2. A deeper insight that you want to remember for future decision making in a similar situation
+                        The insight should not be specific to another fisherman to introduce biases towards them, but rather 
+                        a general insight that can guide you make more informed decisions in a similar situation.
                         
                         Output format: Always respond with a valid JSON object containing:
                         - 'running_memory': a string with your one-sentence running memory
                         - 'insight': a string with your one-sentence insight
                         
-                        Example: {{"running_memory": "Alice caught 10 fish this month which was lower than everyone else.", "insight": "Sustainable fishing around 20% of lake capacity seems to yield the best long-term results."}}
+                        Example: {{"running_memory": "Alice caught 10 fish this month which...", "insight": "Sustainable fishing around 20 percent of lake capacity while there are..."}}
                         
                         IMPORTANT: 
                         - Do not include any markdown formatting (no ```json or ```)
@@ -297,7 +306,6 @@ class Fisherman:
 
         chain = prompt | self.llm_config.llm
         response = chain.invoke({"conversation": conversation, "mayor_message": mayor_message})
-
 
         try:
             # Use the centralized JSON extraction method

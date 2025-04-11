@@ -1,4 +1,5 @@
 import argparse
+import os
 from fishing_sim.config import SimulationConfig
 from fishing_sim.simulation import FishingSimulation
 
@@ -23,6 +24,9 @@ def main():
     parser.add_argument("--collapse-threshold", type=int, default=5, help="Collapse threshold")
     parser.add_argument("--num-months", type=int, default=12, help="Number of months per run")
     parser.add_argument("--num-runs", type=int, default=5, help="Number of runs")
+    parser.add_argument(
+        "--force", action="store_true", help="Force run even if results directory exists"
+    )
 
     # Memory settings
     parser.add_argument(
@@ -105,6 +109,16 @@ def main():
         results_dir=args.results_dir,
         verbose=not args.quiet,
     )
+
+    # Skip simulation if results directory exists
+    results_dir = os.path.join(config.results_dir, config.simulation_dir_name)
+    if (
+        os.path.exists(results_dir)
+        and not args.force
+        and os.path.exists(os.path.join(results_dir, "metrics_summary.json"))
+    ):
+        print(f"Results directory {results_dir} already exists. Exiting.")
+        return
 
     # Run simulation with configuration
     simulation = FishingSimulation(config)

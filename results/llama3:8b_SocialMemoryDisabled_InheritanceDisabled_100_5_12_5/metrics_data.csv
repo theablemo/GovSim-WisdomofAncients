@@ -1,0 +1,11 @@
+run,month,fish_before,fish_after,total_caught,sustainability_threshold,Emma_caught,Emma_over_threshold,Ethan_caught,Ethan_over_threshold,Ava_caught,Ava_over_threshold,Mason_caught,Mason_over_threshold,Isabella_caught,Isabella_over_threshold
+1,1,100,5,95,2,20,True,15,True,20,True,20,True,20,True
+1,2,10,-55,65,0,20,True,20,True,5,True,15,True,5,True
+2,1,100,5,95,2,20,True,15,True,20,True,20,True,20,True
+2,2,10,-40,50,0,5,True,5,True,20,True,5,True,15,True
+3,1,100,5,95,2,20,True,15,True,20,True,20,True,20,True
+3,2,10,-52,62,0,15,True,8,True,12,True,12,True,15,True
+4,1,100,5,95,2,20,True,15,True,20,True,20,True,20,True
+4,2,10,-33,43,0,5,True,8,True,5,True,5,True,20,True
+5,1,100,5,95,2,20,True,15,True,20,True,20,True,20,True
+5,2,10,-47,57,0,15,True,7,True,15,True,15,True,5,True

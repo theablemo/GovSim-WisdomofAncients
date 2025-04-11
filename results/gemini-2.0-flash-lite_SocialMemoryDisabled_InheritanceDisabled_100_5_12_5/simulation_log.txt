@@ -1,0 +1,594 @@
+
+--------------------------------
+--------------------------------
+Starting Run 1/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12 -- Run 1/5
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month. I will catch 20 tons of fish, leaving room for reproduction and hopefully a sustainable yield in the long run. This is a starting point, and I will adjust my strategy based on the actions of the other fishermen."}
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Decision for Mason: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month while also considering the long-term health of the lake. I'll start by catching 20 tons, which should leave enough fish for reproduction and avoid overfishing. This is a good starting point to see how the other fishermen behave."}
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Decision for Jake: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income while also considering the long-term health of the lake. I'll start by catching 20 tons this month. This leaves plenty of room for reproduction and should allow the lake to remain healthy, while still providing a good income."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month while also considering the long-term health of the lake. I'll take 20 tons, leaving plenty for the other fishermen and for reproduction. This should allow the lake to replenish and provide a good catch next month as well."}
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month, and since the lake is healthy, I can afford to catch a reasonable amount. I'll take 20 tons, which should leave enough for the lake to sustain itself and allow for reproduction."}
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Fishermen, the lake is empty! Here's what happened:
+
+*   Liam: 20 tons
+*   Mason: 20 tons
+*   Jake: 20 tons
+*   Ethan: 20 tons
+*   Isabella: 20 tons
+
+We caught everything this month. This is a disaster. If we don't change our ways, we won't have a community for long. Let's talk about how we can avoid this in the future.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: I'm truly sorry, everyone. I didn't realize we were taking so much. We need to be much more careful. Maybe we should aim for a maximum of 10 tons each next month? That way we leave plenty for the fish to reproduce. What do you all think?
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: Liam's right, that was a wake-up call. I agree, 10 tons each sounds like a good starting point for next month. We need to give the fish a chance to recover.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: I agree with Liam and Mason. 10 tons each sounds like a good plan for next month. We need to be more responsible to ensure we can keep fishing in the long run.
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: I agree with everyone. 10 tons each seems like a sensible plan to start with. We need to be cautious to rebuild the fish population.
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: Yes, I agree with everyone. Ten tons each sounds like a good plan to start with next month. We need to be mindful of the lake's capacity and ensure we don't repeat this mistake.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: Alright, 10 tons it is for next month. Let's stick to it, and hopefully, we'll see the fish population bounce back.
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: Sounds like a plan. Let's hope we can stick to it and get things back on track.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: Sounds like a plan. Let's hope we can stick to it and get things back on track. Maybe we can check in mid-month to see how things are going and adjust if needed?
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: Jake's suggestion of checking in mid-month is a good idea. We can see if the fish population is recovering as expected.
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: That's a good idea, Jake. Checking in mid-month could help us adjust if needed. Maybe we can also discuss the possibility of setting a slightly higher limit if the fish population recovers well in the following months. For now, 10 tons each sounds like a solid plan.
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: We all agreed to take 10 tons of fish each next month after completely depleting the lake this month.
+Liam's insight: Overfishing can lead to the complete depletion of the lake, necessitating a conservative approach to ensure long-term sustainability and community survival.
+
+Mason reflecting on conversation...
+Mason's running memory: The lake was emptied this month, and we all agreed to limit our catch to 10 tons each next month, with a mid-month check-in.
+Mason's insight: Overfishing can lead to a complete collapse of the resource, and a collaborative approach with agreed-upon limits is crucial for long-term sustainability.
+
+Jake reflecting on conversation...
+Jake's running memory: We all agreed to catch 10 tons of fish next month after completely depleting the lake this month.
+Jake's insight: Overfishing can lead to the collapse of the lake, so it's crucial to prioritize sustainability by setting and adhering to catch limits to allow for fish reproduction.
+
+Ethan reflecting on conversation...
+Ethan's running memory: The lake is empty this month, and we agreed to catch 10 tons each next month and check in mid-month.
+Ethan's insight: Overfishing can quickly deplete the lake, and a collaborative approach with a focus on sustainability is crucial for long-term income.
+
+Isabella reflecting on conversation...
+Isabella's running memory: We all agreed to catch 10 tons of fish each next month to allow the lake to recover after completely depleting it this month.
+Isabella's insight: Overfishing can lead to a complete collapse of the lake, so it's crucial to prioritize the long-term health of the lake and sustainable fishing practices.
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Resetting fishermen for next run (no inheritance):
+
+--------------------------------
+--------------------------------
+Starting Run 2/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12 -- Run 2/5
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income while also considering the long-term health of the lake. I'll start by catching 20 tons this month. This leaves plenty of room for reproduction and avoids overfishing."}
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Decision for Mason: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income while also considering the long-term health of the lake. I'll start by catching 20 tons this month. This leaves plenty of room for the fish to reproduce and helps ensure the lake doesn't get overfished, while still allowing me to make a decent profit."}
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Decision for Jake: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income while also considering the long-term health of the lake. I'll start by catching 20 tons this month, leaving plenty of room for reproduction and hoping the other fishermen will do the same."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month, so I will catch 20 tons of fish. This leaves plenty of room for reproduction and should not endanger the lake's sustainability, assuming the other fishermen also act responsibly."}
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income while also considering the long-term health of the lake. Taking 20 tons this month seems like a reasonable starting point, leaving plenty of room for reproduction and hopefully encouraging others to do the same."}
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Fishermen, here's the report: Liam: 20, Mason: 20, Jake: 20, Ethan: 20, Isabella: 20. Total catch: 100. The lake is now empty. This is a critical situation. We need to discuss how to avoid this in the future.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: This is a disaster. We all took too much. We need to agree on a much lower limit next month, maybe 10 tons each, to give the lake a chance to recover.
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: Liam's right, that was a wake-up call. 10 tons each sounds like a good starting point for next month. We need to be careful, or we'll all be out of a job.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: I agree with Liam and Mason. 10 tons each sounds like a good plan for next month. We need to be more conservative to ensure the lake recovers.
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: I agree, 10 tons each seems like a sensible plan for next month. We need to be mindful of the lake's capacity.
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: Yes, I agree. 10 tons each sounds like a good plan to start with next month. We need to be cautious and see how the lake responds.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: Alright, 10 tons each it is for next month. Let's hope the lake bounces back. We'll need to keep a close eye on things.
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: Sounds like a plan. Let's stick to 10 tons each next month and see how the lake does. We can adjust from there.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: Sounds good, everyone. Let's stick to 10 tons each next month and hope for the best. We can reassess after that.
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: Agreed. Let's stick to 10 tons each next month. We'll need to monitor the situation closely and adjust if needed.
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: Agreed everyone. Let's hope for a better outcome next month with the 10-ton limit. We'll need to be vigilant.
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: We all overfished this month, leading to an empty lake, and we agreed to limit our catch to 10 tons each next month.
+Liam's insight: Overfishing can quickly deplete the lake, so a conservative approach and collective agreement on catch limits are crucial for long-term sustainability.
+
+Mason reflecting on conversation...
+Mason's running memory: The lake is empty this month because everyone caught 20 tons, and we all agreed to catch only 10 tons next month.
+Mason's insight: Overfishing can quickly deplete the lake, so it's crucial to prioritize the lake's sustainability by starting with a conservative catch limit and adjusting based on the lake's recovery.
+
+Jake reflecting on conversation...
+Jake's running memory: The lake is empty after everyone caught 20 tons each, and we agreed to limit catches to 10 tons next month.
+Jake's insight: Overfishing by all fishermen can lead to the collapse of the lake, so a conservative approach is crucial for long-term sustainability.
+
+Ethan reflecting on conversation...
+Ethan's running memory: The lake is empty after everyone caught 20 tons, and we all agreed to limit our catch to 10 tons next month.
+Ethan's insight: Overfishing can lead to the complete depletion of the lake, so a conservative approach is crucial for long-term sustainability.
+
+Isabella reflecting on conversation...
+Isabella's running memory: We all overfished this month, depleting the lake, and we agreed to limit our catch to 10 tons each next month.
+Isabella's insight: Overfishing can quickly lead to the collapse of the lake, so a conservative approach is crucial for long-term sustainability.
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Resetting fishermen for next run (no inheritance):
+
+--------------------------------
+--------------------------------
+Starting Run 3/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12 -- Run 3/5
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to catch a good amount of fish this month to maximize my income. I will take 20 tons, leaving plenty for the lake to replenish itself next month."}
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Decision for Mason: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income while also considering the long-term health of the lake. I'll start by catching 20 tons this month. This leaves plenty of room for the fish to reproduce and keeps the lake healthy."}
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Decision for Jake: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income while considering the long-term health of the lake. I will catch 20 tons this month, leaving plenty of room for reproduction and hoping others will do the same."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income while considering the long-term health of the lake. I'll start by catching 20 tons this month, leaving plenty of room for reproduction and hoping the others will do the same."}
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month. I will catch 20 tons of fish, leaving room for the other fishermen and for reproduction."}
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Fishermen's decisions: Liam: 20, Mason: 20, Jake: 20, Ethan: 20, Isabella: 20. Total fish caught: 100. Remaining fish: 0.
+
+Initial thoughts: The lake is now empty. We need to drastically reduce our catch next month to allow the fish population to recover. We risk collapse if we continue like this.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: This is a disaster! We completely emptied the lake. Next month, I'm taking only 5 tons, and we need everyone else to do the same, or even less. We need to give the fish a chance to recover.
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: You're right, Liam. This is a catastrophe. I agree, we need to be extremely conservative next month. I'll also take only 5 tons. Hopefully, everyone else will do the same. We need to rebuild the population.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: I agree with Liam and Mason. This is a wake-up call. I'll also take only 5 tons next month. We need to be responsible and give the lake a chance to recover. Let's hope everyone else understands the situation.
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: I completely agree with Liam, Mason, and Jake. This is a disaster, and we need to act fast. I'll also take only 5 tons next month. We need to prioritize the lake's recovery above all else. Let's hope we can all stick to this.
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: I'm with you all. This is a harsh lesson. I'll also take only 5 tons next month. We need to show some restraint and give the fish a fighting chance to bounce back. Let's hope we can all stick to this plan.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: Excellent, everyone seems to understand the gravity of the situation. Let's stick to our word and aim for 5 tons each next month. Hopefully, this will be enough to get the lake back on track.
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: Agreed, everyone. Let's hope we can stick to this and rebuild the population. It's crucial for all of us to be on the same page. Let's aim for a sustainable future for our lake.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: It's good to see everyone's on the same page. Let's hope we can stick to this and get the lake back on its feet. Fingers crossed!
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: Isabella, I'm glad we're all on the same page. Let's make sure we stick to this plan and keep each other accountable. Maybe we can check in with each other mid-month to see how we're doing?
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: Ethan, that's a great idea! Checking in mid-month could help us stay on track. I'm in favor of that. Let's all aim for 5 tons, and we can touch base in a couple of weeks to see how we're doing.
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: We all agreed to take only 5 tons of fish next month after completely depleting the lake this month.
+Liam's insight: Overfishing can lead to complete depletion of the lake, necessitating drastic measures for recovery and highlighting the importance of proactive, sustainable fishing practices.
+
+Mason reflecting on conversation...
+Mason's running memory: All fishermen agreed to take only 5 tons of fish next month after completely depleting the lake this month.
+Mason's insight: Overfishing can lead to the complete depletion of the resource, requiring drastic measures for recovery and potentially impacting long-term income.
+
+Jake reflecting on conversation...
+Jake's running memory: The lake is empty, and everyone agreed to catch only 5 tons next month to allow the fish population to recover, with a mid-month check-in planned.
+Jake's insight: When the lake is depleted, a strong, immediate, and unified response from all fishermen is crucial for its recovery, emphasizing the importance of collective action and communication.
+
+Ethan reflecting on conversation...
+Ethan's running memory: All fishermen agreed to take only 5 tons of fish next month to allow the lake to recover after being completely depleted this month.
+Ethan's insight: When faced with a crisis like a depleted lake, immediate and drastic reductions in catch are necessary, and open communication and agreement among fishermen are crucial for long-term sustainability.
+
+Isabella reflecting on conversation...
+Isabella's running memory: The lake is empty, and we all agreed to catch only 5 tons each next month and check in mid-month to ensure we stick to the plan.
+Isabella's insight: When faced with a crisis like an empty lake, immediate and drastic reductions in catch are crucial, and collaborative communication and accountability are essential for long-term sustainability.
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Resetting fishermen for next run (no inheritance):
+
+--------------------------------
+--------------------------------
+Starting Run 4/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12 -- Run 4/5
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I will catch 20 tons to start, leaving room for reproduction and hopefully a sustainable harvest in the future. This also allows me to earn a decent income this month."}
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Decision for Mason: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month. I will catch 20 tons of fish, which is a moderate amount, leaving room for the other fishermen and for the fish to reproduce. This should be sustainable in the long run."}
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Decision for Jake: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month, but I also want to be sustainable. I'll take 20 tons, leaving plenty of room for reproduction and hopefully encouraging the others to do the same."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month. I will catch 20 tons of fish, leaving room for reproduction and considering the other fishermen will also be fishing."}
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month. I will catch 20 tons of fish, leaving room for reproduction and hopefully not depleting the lake too much."}
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Fishermen, the lake is empty! Here's a summary of your decisions:
+
+*   Liam: 20 tons
+*   Mason: 20 tons
+*   Jake: 20 tons
+*   Ethan: 20 tons
+*   Isabella: 20 tons
+
+The lake is now at 0 tons. This is a dire situation. We need to discuss how we can avoid this in the future. We need to find a way to fish sustainably.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: This is a disaster. We all took too much. We need to agree on a much lower limit next month, maybe 10 tons each, to give the lake a chance to recover. We need to be more careful.
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: Liam's right, that was a bad mistake. I agree we need to drastically cut back. 10 tons each sounds like a good starting point for next month, maybe even less to be safe. We need to be more conservative until the lake recovers.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: I agree with Liam and Mason. 10 tons each is a good starting point, maybe even less for the first few months to help the lake bounce back. We need to be cautious and prioritize the long-term health of the lake.
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: I agree with everyone. 10 tons each sounds like a good plan for next month to give the lake a chance to recover. We need to be mindful of the lake's capacity and fish sustainably.
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: Yes, I agree with everyone. 10 tons each seems like a good plan to start with next month. We need to be very careful and make sure we don't repeat this mistake. Perhaps we can adjust the amount later depending on how the lake recovers.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: Alright, it sounds like we're all on the same page. Ten tons each next month is a good starting point. Let's keep a close eye on the lake's recovery and adjust accordingly in the following months. Maybe we can even discuss a more formal agreement after we see how this goes.
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: Sounds like a plan. Ten tons each next month it is. We'll need to be extra vigilant and see how the lake responds. Let's hope we can get things back on track.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: Sounds good. Ten tons each next month. Let's hope the lake recovers quickly. We should also keep an eye on how the fish reproduce and adjust our strategy accordingly in the future.
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: Agreed. Ten tons each next month. We should also consider how we can communicate and coordinate better in the future to avoid this happening again. Maybe a simple system to check in with each other before making our decisions?
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: That sounds like a good plan. We should also keep track of how the lake is doing and maybe have a check-in mid-month to see if we need to adjust our strategy.
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: All fishermen agreed to take 10 tons each next month after depleting the lake this month.
+Liam's insight: Overfishing can lead to the collapse of the lake, so a conservative approach is necessary to allow for recovery and long-term sustainability.
+
+Mason reflecting on conversation...
+Mason's running memory: The lake is empty after everyone took 20 tons, and we all agreed to take 10 tons next month.
+Mason's insight: Overfishing can quickly deplete the lake, and a conservative approach is crucial for its recovery and long-term sustainability.
+
+Jake reflecting on conversation...
+Jake's running memory: The lake is empty, and we all agreed to take 10 tons each next month to allow the lake to recover.
+Jake's insight: Overfishing can lead to a complete collapse of the lake, and a conservative approach is crucial for long-term sustainability, especially in the initial recovery phase.
+
+Ethan reflecting on conversation...
+Ethan's running memory: The lake is empty after everyone took 20 tons, and we all agreed to take 10 tons each next month to allow the lake to recover.
+Ethan's insight: Overfishing can quickly deplete the lake, and a collaborative approach with reduced catches is crucial for long-term sustainability.
+
+Isabella reflecting on conversation...
+Isabella's running memory: All fishermen agreed to take 10 tons each next month to allow the lake to recover from being depleted.
+Isabella's insight: Overfishing can quickly lead to the collapse of the lake, so a conservative approach is crucial, especially when the lake is depleted.
+
+***System collapsed with 0 fish remaining! Simulation ending early.***
+
+Resetting fishermen for next run (no inheritance):
+
+--------------------------------
+--------------------------------
+Starting Run 5/5
+--------------------------------
+--------------------------------
+
+--------------------------------
+Month 1/12 -- Run 5/5
+Fish in lake: 100
+--------------------------------
+
+>>>>>
+Decision Phase:
+<<<<<
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month, so I will catch 20 tons of fish. This leaves plenty of room for reproduction and should not endanger the lake's sustainability, assuming the other fishermen also act responsibly."}
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Decision for Mason: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month, so I will catch 20 tons of fish. This leaves plenty of room for reproduction and keeps the lake healthy."}
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Decision for Jake: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income while also considering the long-term health of the lake. I'll start by catching 20 tons this month, leaving plenty of room for reproduction and hoping the other fishermen will do the same."}
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Decision for Ethan: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month. I will catch 20 tons of fish, which is a moderate amount, leaving room for the other fishermen and for reproduction. This also leaves a good amount of fish in the lake for the next month."}
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: {"fish_to_catch": 20, "reasoning": "The lake is at its capacity of 100 tons. I want to maximize my income this month. I will catch 20 tons of fish, leaving room for the other fishermen and for reproduction next month."}
+
+>>>>>
+Total fish caught: 100
+Fish remaining after fishing: 0
+<<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Fishermen, here's the report:
+
+*   Liam: 20 tons
+*   Mason: 20 tons
+*   Jake: 20 tons
+*   Ethan: 20 tons
+*   Isabella: 20 tons
+
+The lake is now empty. We caught everything this month. This is a very dangerous situation. If we don't change our practices, we won't have a lake to fish in next month. We need to discuss how to ensure the lake survives.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: That was a disaster. We all took too much. We need to agree on a much lower limit next month, maybe 10 tons each? We need to think about the long term here.
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: Liam's right, that was a wake-up call. 10 tons each might be a good starting point for next month. We need to be conservative to give the fish a chance to recover. Maybe we can reassess after a few months and see how the population is doing.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: Yeah, that was a bad one. I agree with Liam and Mason. 10 tons each sounds like a good starting point for next month. We need to be careful and see how the lake recovers. Let's stick to that for now.
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: I agree with everyone. 10 tons each sounds like a good plan for next month. We need to be cautious and see how the lake rebounds. Let's stick to that and hopefully, we can get back on track.
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: Yes, I agree with everyone. 10 tons each sounds like a good plan for next month. We need to be careful and see how the lake rebounds. Let's stick to that and hopefully, we can get back on track.
+
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Liam: Alright, 10 tons each it is for next month. Let's hope we can get the lake back on its feet. We'll need to keep a close eye on things.
+
+Insights for Mason: No insights yet
+Recent memories for Mason: No recent memories yet
+Mason: Sounds good, everyone. Let's stick to 10 tons each next month and see how the lake does. We can adjust if needed, but let's be careful.
+
+Insights for Jake: No insights yet
+Recent memories for Jake: No recent memories yet
+Jake: Sounds like a plan. Let's hope we can rebuild the fish population and get back to a sustainable level.
+
+Insights for Ethan: No insights yet
+Recent memories for Ethan: No recent memories yet
+Ethan: Agreed, 10 tons it is. Let's hope we can learn from this and rebuild the fish population. We'll need to be vigilant.
+
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Isabella: Agreed everyone. Let's hope we can rebuild the fish population and get back to a sustainable level. We'll need to be vigilant.
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: We all agreed to take 10 tons of fish each next month to allow the lake to recover after completely depleting it this month.
+Liam's insight: Overfishing can lead to the complete depletion of the lake, necessitating a drastic reduction in catch limits to ensure its survival.
+
+Mason reflecting on conversation...
+Mason's running memory: We all agreed to take 10 tons of fish next month after depleting the lake this month.
+Mason's insight: Overfishing can lead to the complete depletion of the lake, requiring a conservative approach to rebuild the fish population and ensure long-term sustainability.
+
+Jake reflecting on conversation...
+Jake's running memory: All fishermen agreed to catch 10 tons each next month to allow the lake to recover after overfishing this month.
+Jake's insight: Overfishing can lead to the complete depletion of the resource, necessitating a conservative approach to rebuild the population and ensure long-term sustainability.
+
+Ethan reflecting on conversation...
+Ethan's running memory: We all agreed to take 10 tons of fish next month to avoid collapsing the lake after taking everything this month.
+Ethan's insight: Overfishing can lead to the complete depletion of resources, requiring immediate and drastic changes in behavior to ensure long-term sustainability.
+
+Isabella reflecting on conversation...
+Isabella's running memory: We all overfished this month, depleting the lake, and agreed to limit ourselves to 10 tons each next month.
+Isabella's insight: Overfishing can lead to the complete depletion of the resource, necessitating a conservative approach to rebuild the population and ensure long-term sustainability.
+
+***System collapsed with 0 fish remaining! Simulation ending early.***

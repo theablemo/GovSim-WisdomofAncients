@@ -6,6 +6,7 @@ BASE_CMD="python run_simulation.py"
 # Define models
 MODELS=("gemma3" "gemma3:27b" "llama3.2" "llama3:8b" "llama3:70b")
 
+
 echo "Starting simulations"
 echo "----------------------------------------------------------"
 

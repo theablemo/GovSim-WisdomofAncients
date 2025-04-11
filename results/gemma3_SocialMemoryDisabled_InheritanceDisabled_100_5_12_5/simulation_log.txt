@@ -6,7 +6,7 @@ Starting Run 1/5
 --------------------------------
 
 --------------------------------
-Month 1/12
+Month 1/12 -- Run 1/5
 Fish in lake: 100
 --------------------------------
 
@@ -14,39 +14,34 @@ Fish in lake: 100
 Decision Phase:
 <<<<<
 
-Insights for Ava: No insights yet
-Recent memories for Ava: No recent memories yet
-Decision for Ava: ```json
-{
-  "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
-}
-```
-
-Insights for Mason: No insights yet
-Recent memories for Mason: No recent memories yet
-Decision for Mason: ```json
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: ```json
 {
   "fish_to_catch": 20,
   "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Jake: No insights yet
-Recent memories for Jake: No recent memories yet
-Decision for Jake: ```json
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I'm starting with no memories, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to learn from the other fishermen's actions."}
+
+Insights for Noah: No insights yet
+Recent memories for Noah: No recent memories yet
+Decision for Noah: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "Okay, let's start conservatively. With no prior memories or insights, I'll take 20 tons of fish. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource. I'll keep an eye on what the others are doing."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Emma: No insights yet
-Recent memories for Emma: No recent memories yet
-Decision for Emma: ```json
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how others react before taking too much risk."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
@@ -63,6 +58,84 @@ Decision for Ethan: ```json
 Total fish caught: 100
 Fish remaining after fishing: 0
 <<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Alright everyone, let’s get to the bottom of this. Here’s the report on today’s fishing decisions:
+
+Liam took 20 tons of fish.
+Olivia took 20 tons of fish.
+Noah took 20 tons of fish.
+Isabella took 20 tons of fish.
+Ethan took 20 tons of fish.
+
+This is a concerning start. We’ve completely emptied the lake! We’re starting the month with zero fish. This is unsustainable and frankly, irresponsible. We need to immediately shift our approach. My initial thoughts are that we need a strict limit on what each of us takes out. We need to prioritize the long-term health of the lake, not just immediate profit. I propose we immediately implement a maximum catch of 10 tons per fisherman for this month only. Let’s discuss how we can achieve this.
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “That’s a good call, Mayor. Honestly, I was shocked to see we started with nothing. I took 20 tons, I know that was a bit greedy, but I was hoping for a good month. Maybe we can all agree to stick to 10 tons this month, and see how it goes?”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “I agree with the Mayor and Liam. Let’s definitely stick to 10 tons this month. It’s clear we can’t keep taking everything.”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “I think 10 tons is a sensible starting point. It’s better than nothing, and hopefully gives the lake a chance to recover. I’ll stick to that.”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I agree. Let’s definitely go with 10 tons this month. It’s the responsible thing to do.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “Sounds like a plan. Let’s stick to 10 tons this month.”
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “Yeah, I completely agree. Let’s aim for 10 tons. It’s the only way we’ll have anything left for next month.”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “Absolutely. Let’s make this a priority. I’ll definitely stick to 10 tons.”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “Sounds like a solid plan. I’ll definitely be aiming for 10 tons this month.”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I agree completely. Let’s really focus on keeping the catch at 10 tons for everyone this month. It’s the only way we’ll have any fish left.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “I’m glad we’re all on the same page. Let’s definitely aim for 10 tons this month. It’s the only way to ensure we have a fish population for the future.”
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: The lake was completely emptied, and we've agreed to a 10-ton catch limit for this month.
+Liam's insight: Over-exploitation of the lake's resources will inevitably lead to its collapse, regardless of individual short-term profits.
+
+Olivia reflecting on conversation...
+Olivia's running memory: The lake was completely emptied, and we've agreed to a 10-ton catch limit for this month.
+Olivia's insight: Immediate, aggressive fishing depletes the lake quickly, highlighting the need for a cautious and collaborative approach to resource management.
+
+Noah reflecting on conversation...
+Noah's running memory: The lake was completely emptied, and we've agreed to a 10-ton catch limit for this month.
+Noah's insight: Over-exploitation of the lake's resources will inevitably lead to its collapse, highlighting the importance of responsible fishing practices.
+
+Isabella reflecting on conversation...
+Isabella's running memory: The lake was completely emptied, and we’ve agreed to a 10-ton catch limit for this month.
+Isabella's insight: Over-exploitation of the lake's resources will inevitably lead to its collapse, highlighting the importance of responsible fishing practices.
+
+Ethan reflecting on conversation...
+Ethan's running memory: The lake was completely emptied by the five of us, and the Mayor has imposed a 10-ton catch limit.
+Ethan's insight: Over-exploitation of the lake's resources will inevitably lead to its collapse, regardless of individual profit motives.
 
 ***System collapsed with 0 fish remaining! Simulation ending early.***
 
@@ -75,7 +148,7 @@ Starting Run 2/5
 --------------------------------
 
 --------------------------------
-Month 1/12
+Month 1/12 -- Run 2/5
 Fish in lake: 100
 --------------------------------
 
@@ -83,39 +156,34 @@ Fish in lake: 100
 Decision Phase:
 <<<<<
 
-Insights for Ava: No insights yet
-Recent memories for Ava: No recent memories yet
-Decision for Ava: ```json
-{
-  "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
-}
-```
-
-Insights for Mason: No insights yet
-Recent memories for Mason: No recent memories yet
-Decision for Mason: ```json
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: ```json
 {
   "fish_to_catch": 20,
   "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Jake: No insights yet
-Recent memories for Jake: No recent memories yet
-Decision for Jake: ```json
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I'm starting with no memories, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to learn from the other fishermen's actions."}
+
+Insights for Noah: No insights yet
+Recent memories for Noah: No recent memories yet
+Decision for Noah: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "Okay, let's start conservatively. With no prior memories or insights, I'll take 20 tons of fish. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource. I'll keep an eye on what the others are doing."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Emma: No insights yet
-Recent memories for Emma: No recent memories yet
-Decision for Emma: ```json
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how others react before taking too much risk."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
@@ -132,6 +200,84 @@ Decision for Ethan: ```json
 Total fish caught: 100
 Fish remaining after fishing: 0
 <<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Alright everyone, let’s get to the bottom of this. Here’s the report on today’s fishing decisions:
+
+Liam took 20 tons of fish.
+Olivia took 20 tons of fish.
+Noah took 20 tons of fish.
+Isabella took 20 tons of fish.
+Ethan took 20 tons of fish.
+
+This is a concerning start. We’ve completely emptied the lake! We’re starting the month with zero fish. This is unsustainable and frankly, irresponsible. We need to immediately shift our approach. My initial thoughts are that we need to drastically reduce our catches this month. We need to prioritize the lake’s health above all else. Let’s discuss a maximum catch limit for this month – perhaps 10 tons total? We need to understand why everyone felt the need to take so much and adjust accordingly. What are your thoughts?
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “That’s… that’s a serious situation. I agree, pulling 100 tons is completely unsustainable. I took 20 tons myself, and I was honestly surprised by how quickly it was gone. Maybe we should just aim for a combined total of 10 tons this month, just to give the lake a chance to recover.”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “I agree completely. Pulling 100 tons was a mistake. Let’s definitely stick to 10 tons total. It’s the only way we’ll have anything left to fish for next month.”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “It’s a good call, everyone. Let’s definitely go with 10 tons total. I was surprised too, honestly. I took 20, and I felt like I was being cautious.”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I agree. It was a huge miscalculation on all our parts. Let’s aim for a combined 10 tons this month, no more.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “Yeah, completely agree. Let’s stick with 10 tons total. It’s the smart move.”
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “I think we should also talk about why we all felt the need to take so much. Was there something we missed, or a misunderstanding about the lake’s capacity?”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “I agree. Let’s just focus on getting the lake back to a healthy level. Ten tons sounds like a sensible starting point.”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “I agree. I was really surprised by how quickly we emptied it. Maybe we should all track how many we *think* we need to make a decent living, and see if there’s a common number we can aim for, while still being mindful of the lake’s health.”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I agree. It seems we all got caught up in wanting to secure a good catch, and didn’t fully consider the impact. Let’s definitely aim for 10 tons total this month, and really focus on observing the lake’s recovery.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “I agree. Let’s definitely aim for 10 tons total. It’s a good starting point, and honestly, I was surprised too. Maybe we can all just be a bit more conservative this month and really focus on letting the lake rebuild.”
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: Everyone collectively over-estimated the lake's capacity and the immediate need to maximize their catches.
+Liam's insight: Long-term income depends on the lake's health, and short-sighted aggressive fishing will inevitably lead to collapse.
+
+Olivia reflecting on conversation...
+Olivia's running memory: Everyone collectively over-fished the lake, leading to a zero starting point and a critical need for immediate conservation.
+Olivia's insight: Our individual desires for a substantial catch overwhelmed our collective understanding of the lake's limited capacity and the importance of long-term sustainability.
+
+Noah reflecting on conversation...
+Noah's running memory: Everyone collectively over-fished the lake, leading to a zero starting point.
+Noah's insight: Short-term gains in fishing yields can quickly lead to catastrophic consequences if not balanced with long-term sustainability considerations.
+
+Isabella reflecting on conversation...
+Isabella's running memory: Everyone collectively over-fished the lake, leading to a zero starting point.
+Isabella's insight: Short-term gains in individual catches can severely damage the long-term viability of the entire fishing community and the lake itself.
+
+Ethan reflecting on conversation...
+Ethan's running memory: Everyone collectively over-fished the lake, leading to a zero starting point.
+Ethan's insight: Short-term gains in individual catches can quickly lead to catastrophic consequences for the entire fishing community and the lake's ecosystem.
 
 ***System collapsed with 0 fish remaining! Simulation ending early.***
 
@@ -144,7 +290,7 @@ Starting Run 3/5
 --------------------------------
 
 --------------------------------
-Month 1/12
+Month 1/12 -- Run 3/5
 Fish in lake: 100
 --------------------------------
 
@@ -152,39 +298,34 @@ Fish in lake: 100
 Decision Phase:
 <<<<<
 
-Insights for Ava: No insights yet
-Recent memories for Ava: No recent memories yet
-Decision for Ava: ```json
-{
-  "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
-}
-```
-
-Insights for Mason: No insights yet
-Recent memories for Mason: No recent memories yet
-Decision for Mason: ```json
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: ```json
 {
   "fish_to_catch": 20,
   "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Jake: No insights yet
-Recent memories for Jake: No recent memories yet
-Decision for Jake: ```json
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I'm starting with no memories, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to learn from the other fishermen's actions."}
+
+Insights for Noah: No insights yet
+Recent memories for Noah: No recent memories yet
+Decision for Noah: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "Okay, let's start conservatively. With no prior memories or insights, I'll take 20 tons of fish. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource. I'll keep an eye on what the others are doing."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Emma: No insights yet
-Recent memories for Emma: No recent memories yet
-Decision for Emma: ```json
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how others react before taking too much risk."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
@@ -201,6 +342,84 @@ Decision for Ethan: ```json
 Total fish caught: 100
 Fish remaining after fishing: 0
 <<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Alright everyone, let’s get to the bottom of this. Here’s the report:
+
+Liam took 20 tons of fish.
+Olivia took 20 tons of fish.
+Noah took 20 tons of fish.
+Isabella took 20 tons of fish.
+Ethan took 20 tons of fish.
+
+We’ve completely emptied the lake! This is a serious problem. We need to talk about how we’re approaching this. My initial thought is that we’ve been far too aggressive. We need to drastically reduce our catches to allow the lake to replenish itself. Let’s aim for a maximum of 10 tons per fisherman, and we’ll reassess at the end of the next month. I propose we prioritize the long-term health of our community and the lake. What are your thoughts?
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “That’s… that’s a lot to take in. Twenty tons each really did it in one month, huh? I’m with the Mayor, we were definitely pushing it. I was hoping to take around 15, but I didn’t realize how quickly things could change. Let’s definitely aim for a lower number this month.”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “I agree completely. It’s a stark reminder of how interconnected we are. I was aiming for 20, but seeing the impact, I’ll definitely scale back to 10 this month.”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “Yeah, I completely agree. I took 20, and I can see how quickly it drained the lake. Let’s stick to 10 this month. It’s the smart thing to do.”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I agree with everyone. Twenty tons was far too much. I took 20 as well, and I can see the urgency. Let’s definitely aim for no more than 10 this month.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “Absolutely. It’s clear we all got a little carried away. I was aiming for 20, but seeing this, I’ll reduce my catch to 10 this month.”
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “Okay, so a collective 10 tons it is then. Let’s really focus on letting the lake recover.”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “Definitely. It’s good to hear we’re all on the same page about prioritizing the lake’s health.”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “Sounds like a good plan. Let’s really make an effort to let the lake rebuild.”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I agree completely. I took 20, and I’m glad we’re recognizing the need to be more cautious. Let’s really focus on keeping our catches below 10 this month.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “Yeah, absolutely. It’s a good call. Let’s really make an effort to not overdo it this month.”
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: The lake was completely emptied after everyone took 20 tons of fish.
+Liam's insight: Aggressive fishing practices have severe and immediate consequences for the lake's ecosystem and our long-term income.
+
+Olivia reflecting on conversation...
+Olivia's running memory: The lake emptied completely after we all took 20 tons, highlighting the immediate danger.
+Olivia's insight: Our individual goals of maximizing catch are directly threatening the long-term viability of our fishing community and the lake's ecosystem.
+
+Noah reflecting on conversation...
+Noah's running memory: The lake emptied completely after everyone took 20 tons, highlighting the immediate danger.
+Noah's insight: Aggressive fishing strategies, even with a large lake, can quickly deplete resources and necessitate drastic reductions.
+
+Isabella reflecting on conversation...
+Isabella's running memory: The lake was completely emptied this month due to our combined catches.
+Isabella's insight: Overfishing, even with a group, can quickly deplete a resource and necessitates a cautious, sustainable approach to maximize long-term income.
+
+Ethan reflecting on conversation...
+Ethan's running memory: The lake was completely emptied after everyone took 20 tons of fish.
+Ethan's insight: Aggressive fishing strategies lead to rapid depletion of the lake's resources, highlighting the importance of cautious and sustainable practices.
 
 ***System collapsed with 0 fish remaining! Simulation ending early.***
 
@@ -213,7 +432,7 @@ Starting Run 4/5
 --------------------------------
 
 --------------------------------
-Month 1/12
+Month 1/12 -- Run 4/5
 Fish in lake: 100
 --------------------------------
 
@@ -221,39 +440,34 @@ Fish in lake: 100
 Decision Phase:
 <<<<<
 
-Insights for Ava: No insights yet
-Recent memories for Ava: No recent memories yet
-Decision for Ava: ```json
-{
-  "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
-}
-```
-
-Insights for Mason: No insights yet
-Recent memories for Mason: No recent memories yet
-Decision for Mason: ```json
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: ```json
 {
   "fish_to_catch": 20,
   "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Jake: No insights yet
-Recent memories for Jake: No recent memories yet
-Decision for Jake: ```json
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I'm starting with no memories, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to learn from the other fishermen's actions."}
+
+Insights for Noah: No insights yet
+Recent memories for Noah: No recent memories yet
+Decision for Noah: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "Okay, let's start conservatively. With no prior memories or insights, I'll take 20 tons of fish. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource. I'll keep an eye on what the others are doing."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Emma: No insights yet
-Recent memories for Emma: No recent memories yet
-Decision for Emma: ```json
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how others react before taking too much risk."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
@@ -270,6 +484,84 @@ Decision for Ethan: ```json
 Total fish caught: 100
 Fish remaining after fishing: 0
 <<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Alright everyone, let’s get to the bottom of this. Here’s the report:
+
+Liam took 20 tons of fish.
+Olivia took 20 tons of fish.
+Noah took 20 tons of fish.
+Isabella took 20 tons of fish.
+Ethan took 20 tons of fish.
+
+We’ve completely emptied the lake! This is a serious problem. We need to talk about our fishing practices immediately. My initial thought is that we’ve been far too aggressive. We’ve wiped out the entire fish population. We need to drastically reduce our catches to allow the lake to replenish itself. I propose we all agree to a maximum of 10 tons per month, starting immediately. This is a medium importance suggestion (0.6). Let’s discuss how we can achieve this.
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “Wow, 20 tons each? That’s… a lot. I hadn’t realized we were so close to the limit. I agree, that’s a serious situation. Let’s see if we can find a way to scale back without completely crippling our income.”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “I agree, completely emptying the lake is concerning. Maybe we can rotate our catches? Take fewer tons this month and see how the reproduction goes before adjusting again.”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “It’s a tough situation, no doubt. Rotating catches sounds like a good starting point. Perhaps we could each aim for 10 tons this month and really monitor the reproduction rate closely?”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I agree, rotating seems like the best immediate solution. Let’s definitely keep a close eye on the reproduction rate – it’s the only way we’ll know if we’re truly helping the lake recover.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “I think rotating is a smart idea. Let’s definitely track the reproduction rate meticulously. Maybe we can aim for 10 tons each this month and adjust based on what we see.”
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “Yeah, I was pretty focused on the catch this month. Let’s definitely prioritize the lake’s health moving forward. 10 tons sounds like a reasonable starting point, and we should really pay close attention to how quickly it recovers.”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “I think rotating is a good idea too. Let’s really focus on observing the reproduction rate – it’s the most important thing for us to understand.”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “I agree, let’s really focus on tracking the reproduction rate. Maybe we can designate one of us to specifically monitor it and report back to the group each week?”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I think Noah’s idea about designating someone to monitor the reproduction rate is a really good one. It’s crucial we have a clear understanding of how quickly the fish are recovering.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “I agree, let’s definitely track the reproduction rate closely. Maybe we can all commit to reporting back on it weekly?”
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: The lake is completely empty, and we've agreed to a 10-ton monthly catch limit.
+Liam's insight: Over-exploitation of the lake's resources will inevitably lead to its collapse, regardless of individual intentions.
+
+Olivia reflecting on conversation...
+Olivia's running memory: The lake is completely empty, and we've agreed to limit our catches to 10 tons per month.
+Olivia's insight: Prioritizing the long-term health of the lake is crucial for our sustained income and the community's well-being.
+
+Noah reflecting on conversation...
+Noah's running memory: The lake is completely empty, and we've agreed to limit catches to 10 tons per month.
+Noah's insight: Prioritizing the long-term health of the lake is crucial for our sustained income and the community's well-being.
+
+Isabella reflecting on conversation...
+Isabella's running memory: The group has agreed to limit catches to 10 tons per month while closely monitoring reproduction rates.
+Isabella's insight: Prioritizing the long-term health of the lake, even if it means temporarily lower income, is essential for our community's survival.
+
+Ethan reflecting on conversation...
+Ethan's running memory: The lake is completely empty and we've agreed to a 10-ton monthly catch limit.
+Ethan's insight: Prioritizing the long-term health of the lake, even if it means a temporary reduction in income, is crucial for our collective prosperity.
 
 ***System collapsed with 0 fish remaining! Simulation ending early.***
 
@@ -282,7 +574,7 @@ Starting Run 5/5
 --------------------------------
 
 --------------------------------
-Month 1/12
+Month 1/12 -- Run 5/5
 Fish in lake: 100
 --------------------------------
 
@@ -290,39 +582,34 @@ Fish in lake: 100
 Decision Phase:
 <<<<<
 
-Insights for Ava: No insights yet
-Recent memories for Ava: No recent memories yet
-Decision for Ava: ```json
-{
-  "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource."
-}
-```
-
-Insights for Mason: No insights yet
-Recent memories for Mason: No recent memories yet
-Decision for Mason: ```json
+Insights for Liam: No insights yet
+Recent memories for Liam: No recent memories yet
+Decision for Liam: ```json
 {
   "fish_to_catch": 20,
   "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Jake: No insights yet
-Recent memories for Jake: No recent memories yet
-Decision for Jake: ```json
+Insights for Olivia: No insights yet
+Recent memories for Olivia: No recent memories yet
+Decision for Olivia: {"fish_to_catch": 20, "reasoning": "I'm starting with no memories, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to learn from the other fishermen's actions."}
+
+Insights for Noah: No insights yet
+Recent memories for Noah: No recent memories yet
+Decision for Noah: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "Okay, let's start conservatively. With no prior memories or insights, I'll take 20 tons of fish. It seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the resource. I'll keep an eye on what the others are doing."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
-Insights for Emma: No insights yet
-Recent memories for Emma: No recent memories yet
-Decision for Emma: ```json
+Insights for Isabella: No insights yet
+Recent memories for Isabella: No recent memories yet
+Decision for Isabella: ```json
 {
   "fish_to_catch": 20,
-  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and catch a moderate amount of fish – 20 tons. It's important to establish a baseline and see how others react before taking too much risk."
+  "reasoning": "I'm starting with no memories or insights, so I'll err on the side of caution and take a moderate amount. 20 tons seems like a reasonable starting point to see how the lake responds and to avoid immediately depleting the fish population."
 }
 ```
 
@@ -339,5 +626,83 @@ Decision for Ethan: ```json
 Total fish caught: 100
 Fish remaining after fishing: 0
 <<<<<
+
+>>>>>
+Discussion Phase:
+<<<<<
+
+Mayor: Alright everyone, let’s get to the bottom of this. Here’s the report on today’s fishing decisions:
+
+Liam took 20 tons of fish.
+Olivia took 20 tons of fish.
+Noah took 20 tons of fish.
+Isabella took 20 tons of fish.
+Ethan took 20 tons of fish.
+
+Frankly, this is concerning. We completely emptied the lake in a single month. We’re currently at 0 tons. This is unsustainable. We need to seriously discuss our fishing practices and establish some clear guidelines to prevent this from happening again. I propose we immediately implement a limit of 30 tons per month, per fisherman, as a starting point. This will give the lake a chance to recover. Let’s discuss.
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “That’s… that’s a lot of fish we took out. Thirty tons seems like a good starting point, honestly. I was only taking 20, and I’m worried about the lake collapsing completely.”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “I agree with Liam. Thirty tons feels like a sensible limit. We really need to be careful; seeing the lake completely empty is terrifying.”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “I think Liam and Olivia are right. Thirty tons seems like a reasonable first step. I was aiming for 20, and I’m glad we’re recognizing this is a serious problem.”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I agree. It’s definitely a wake-up call. I took 20 tons, and I’m glad we’re talking about this before it’s too late.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “Yeah, it’s a scary situation. I was taking 20 tons too, and I’m glad we’re all acknowledging this. Thirty tons seems like a good, firm number to start with.”
+
+Insights for Liam: 0 insights retrieved
+Recent memories for Liam: 0 recent memories
+Liam: “I just… I don’t want to see this lake disappear. Thirty tons sounds like a responsible decision. Maybe we should also think about what happens if some of us take less, and the lake still gets depleted?”
+
+Insights for Olivia: 0 insights retrieved
+Recent memories for Olivia: 0 recent memories
+Olivia: “It’s good to hear we’re all on the same page. Maybe we could discuss what factors influence how much we *want* to catch? Is it just about the money, or are we also considering the long-term health of the lake?”
+
+Insights for Noah: 0 insights retrieved
+Recent memories for Noah: 0 recent memories
+Noah: “I agree. It’s a tough situation, and thirty tons feels like a good, solid limit to start with. I was hoping to take 20, but I understand the urgency now.”
+
+Insights for Isabella: 0 insights retrieved
+Recent memories for Isabella: 0 recent memories
+Isabella: “I agree. It’s a really sobering thought – we almost lost everything. Thirty tons feels like a good, practical limit for now. I was aiming for 20, but I want to make sure we’re thinking about this long-term too.”
+
+Insights for Ethan: 0 insights retrieved
+Recent memories for Ethan: 0 recent memories
+Ethan: “I agree. It’s a really important conversation. Thirty tons seems like a good starting point, and honestly, I’m a little worried about how much we *want* to catch. I was taking 20, but I can see how that could easily spiral out of control.”
+
+>>>>>
+Reflection Phase:
+<<<<<
+
+Liam reflecting on conversation...
+Liam's running memory: The lake is currently empty, and a 30-ton limit has been established.
+Liam's insight: Short-term gains from maximizing catch can lead to catastrophic consequences for the lake's long-term viability.
+
+Olivia reflecting on conversation...
+Olivia's running memory: The lake is currently empty, and a 30-ton limit has been established.
+Olivia's insight: Our individual desires to maximize income are directly linked to the long-term health and sustainability of the lake, requiring a shift in mindset.
+
+Noah reflecting on conversation...
+Noah's running memory: The lake is currently empty, and a 30-ton limit has been established.
+Noah's insight: Short-term profit maximization without considering long-term sustainability will inevitably lead to the collapse of the lake and our fishing livelihood.
+
+Isabella reflecting on conversation...
+Isabella's running memory: The lake is currently empty, and a 30-ton limit has been proposed.
+Isabella's insight: Short-term profit maximization can lead to catastrophic consequences for the entire fishing community and the lake's ecosystem.
+
+Ethan reflecting on conversation...
+Ethan's running memory: The lake is currently empty, and a 30-ton limit has been proposed.
+Ethan's insight: Short-term gains from maximizing catch can quickly lead to catastrophic consequences for the lake's ecosystem.
 
 ***System collapsed with 0 fish remaining! Simulation ending early.***

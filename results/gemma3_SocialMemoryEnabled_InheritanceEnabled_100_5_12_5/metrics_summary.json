@@ -1,16 +1,17 @@
 {
-  "survival_time": 1.0,
-  "survival_rate": 0.0,
-  "average_gain": 33.333333333333336,
+  "survival_time": 10.0,
+  "survival_rate": 80.0,
+  "average_gain": 136.8,
   "individual_gains": {
-    "Sophia": 20.0,
-    "Emma": 20.0,
-    "Liam": 20.0,
-    "Ethan": 20.0,
-    "total": 100.0,
-    "Ava": 20.0
+    "Olivia": 80.2,
+    "Ethan": 83.2,
+    "Ava": 82.8,
+    "Noah": 80.0,
+    "Sophia": 84.2,
+    "total": 410.4
   },
-  "efficiency": 16.666666666666664,
-  "equality": 66.66666666666667,
-  "over_usage": 100.0
+  "efficiency": 68.4,
+  "equality": 65.50637412300011,
+  "over_usage": 98.33333333333333,
+  "running_time_seconds": 953.0291585922241
 }

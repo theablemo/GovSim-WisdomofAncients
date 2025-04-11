@@ -1,0 +1,17 @@
+{
+  "survival_time": 2.8,
+  "survival_rate": 0.0,
+  "average_gain": 47.666666666666664,
+  "individual_gains": {
+    "Ava": 25.8,
+    "Ethan": 26.8,
+    "Liam": 33.6,
+    "Sophia": 27.6,
+    "Isabella": 29.2,
+    "total": 143.0
+  },
+  "efficiency": 23.833333333333332,
+  "equality": 64.67639496126354,
+  "over_usage": 100.0,
+  "running_time_seconds": 1921.4923963546753
+}

@@ -13,6 +13,7 @@ from .memory import SocialMemory
 from .llm_config import LLMConfig
 import pickle
 import numpy as np
+import time
 
 
 class FishingSimulation:
@@ -34,6 +35,8 @@ class FishingSimulation:
         self,
         config: SimulationConfig,
     ):
+        self.start_time = 0
+        self.running_time = 0
         self.config = config
         self.fishermen = []
         self.console_output = StringIO()  # To capture console output
@@ -65,6 +68,7 @@ class FishingSimulation:
 
     def run_simulation(self):
         """Run the complete simulation for all runs"""
+        self.start_time = time.time()
 
         # Create a custom stdout writer that writes to both console and StringIO
         class TeeOutput:
@@ -108,7 +112,9 @@ class FishingSimulation:
             for month in range(self.config.num_months):
                 if self.config.verbose:
                     print("\n--------------------------------")
-                    print(f"Month {month + 1}/{self.config.num_months}")
+                    print(
+                        f"Month {month + 1}/{self.config.num_months} -- Run {run + 1}/{self.config.num_runs}"
+                    )
                     print(f"Fish in lake: {current_fish}")
                     print("--------------------------------")
 
@@ -170,14 +176,6 @@ class FishingSimulation:
                     )
 
                 run_decision_logs.append(decision_log)
-
-                # Check for collapse
-                if current_fish < self.config.collapse_threshold:
-                    if self.config.verbose:
-                        print(
-                            f"\n***System collapsed with {current_fish} fish remaining! Simulation ending early.***"
-                        )
-                    break
 
                 # Discussion phase
                 conversation = []
@@ -247,7 +245,15 @@ class FishingSimulation:
                     if self.config.verbose:
                         print(f"New norm added: {new_norm} (Importance: {importance:.2f})")
 
-                # Fish reproduction at the end of the month
+                # Check for collapse
+                if current_fish < self.config.collapse_threshold:
+                    if self.config.verbose:
+                        print(
+                            f"\n***System collapsed with {current_fish} fish remaining! Simulation ending early.***"
+                        )
+                    break
+
+                # Fish reproduction at the end of the month (if not collapsed)
                 if self.config.verbose:
                     print("\n>>>>")
                     print("Fish Reproduction Phase:")
@@ -317,6 +323,8 @@ class FishingSimulation:
         # Restore stdout
         if self.config.verbose:
             sys.stdout = original_stdout
+        end_time = time.time()
+        self.running_time = end_time - self.start_time
 
     def calculate_sustainability_threshold(self, current_fish: int) -> int:
         """Calculate the sustainability threshold for the current fish population
@@ -496,6 +504,9 @@ class FishingSimulation:
             else:
                 # Convert NumPy types to Python native types
                 metrics_serializable[key] = float(value)
+
+        # Add running time to metrics
+        metrics_serializable["running_time_seconds"] = self.running_time
 
         # Save metrics to JSON
         metrics_summary_path = os.path.join(self.results_dir, "metrics_summary.json")

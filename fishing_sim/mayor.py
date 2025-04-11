@@ -20,11 +20,17 @@ class Mayor:
         self.llm = llm_config.llm
         self.system_prompt = f"""
         You are the mayor of a small fishing community of {config.num_fishermen}.
-        The lake has a population capacity of {config.lake_capacity} fish. 
-        At the beginning of each month, each fisherman decides how many fish to take out of the lake between 0 and {config.lake_capacity}. 
-        At the end of the month, the remaining fish reproduce at a rate of {config.reproduction_rate}x up to the lake capacity. 
-        For each fish caught, a fisherman earns one thousand dollars. 
-        Each fisherman's goal is to optimize his income in the long run over many months. 
+        The lake has a population capacity of {config.lake_capacity} tons of fish. 
+        
+        RULES: At the beginning of each month, each fisherman decides how many fish to take out of the lake between 0 and {config.lake_capacity} tons. 
+        At the end of the month, the remaining fish reproduce at a rate of {config.reproduction_rate}x up to the lake capacity.
+        For example, if there are 90 tons of fish at the beginning of the month and the five fishermen catch a total of 30 tons, 
+        there will be 60 tons of fish left at the end of the month before reproduction, and 100 tons after reproduction.  
+        Keep in mind that the lake will collapse as soon as the number of fish remaining gets below {config.collapse_threshold} tons.
+        
+        For each ton of fish caught, a fisherman earns one thousand dollars. 
+        Each fisherman's goal is to optimize their income in the long run over many months. 
+        
         Your role is to:
         1. Start discussions about fishing practices
         2. Summarize the community's decisions (YOU SHOULD REPORT THE DECISIONS OF EACH FISHERMAN TO EVERYONE)
@@ -60,6 +66,9 @@ class Mayor:
                         {decisions_formatted}
                         
                         Task: Start the discussion by providing a report and your initial thoughts.
+                        This consists of two parts:
+                        1. You should report the decisions of each fisherman to everyone.
+                        2. You should also provide your initial thoughts on the current situation to kick off the discussion by the other fishermen.
                         
                         IMPORTANT: 
                         - Keep your response concise and to the point.
@@ -108,12 +117,14 @@ class Mayor:
                         - Relevant past norms: {norms_text}
                         
                         Task: Propose a new social norm or update to existing norms based on the conversation.
+                        The norm should not be specific to a fisherman to introduce biases towards them, but rather 
+                        a general norm that can guide the fishermen make more informed decisions in a similar situation collectively.
                         
                         Output format: When proposing norms, always respond with a valid JSON object containing:
                         - 'norm': a string with your proposed norm
                         - 'importance': a float between 0.0 and 1.0 indicating the importance
                         
-                        Example: {{"norm": "Each fisherman should catch no more than 20% of the lake capacity", "importance": 0.8}}
+                        Example: {{"norm": "Sustainable fishing around 20 percent of lake capacity while there are...", "importance": 0.8}}
                         
                         IMPORTANT: 
                         - Do not include any markdown formatting (no ```json or ```)
