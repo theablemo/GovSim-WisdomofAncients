@@ -2,7 +2,7 @@
 
 This simulation platform models a community of fishermen managing a shared resource (a lake). It explores how Large Language Model (LLM) agents make decisions about resource harvesting, balancing individual gain with collective sustainability over multiple generations (simulation runs).
 
-The project draws inspiration from the [GovSim platform](https://github.com/giorgiopiatti/GovSim) and extends its capabilities by introducing mechanisms for social learning and memory across generations. Key extensions include:
+This benchmark builds on the [GovSim platform](https://github.com/giorgiopiatti/GovSim) by Piatti et al, 2024 and extends its capabilities by introducing mechanisms for social learning and memory across generations. Key extensions include:
 - **Social Memory**: Community norms and successful strategies persist across runs, implemented primarily within the `memory.py` module.
 - **Memory Inheritance**: Agents in subsequent runs inherit a portion of the collective knowledge (memories and norms) from the previous generation, facilitating cumulative learning. This is managed within the `simulation.py` logic.
 
