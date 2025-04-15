@@ -10,7 +10,7 @@ These features allow the simulation to model the "Wisdom of the Ancients," where
 
 The core simulation loop involves agents making individual decisions, discussing their strategies (mediated by a Mayor agent), and experiencing the consequences of their collective actions on the fish population. A single month cycle is illustrated below:
 
-![Simulation Cycle](images/simulation_cycle.png)
+![Simulation Cycle](images/simulation_cycle.png)</br>
 *Fig 1: Overview of a single month in the simulation, including decision-making, discussion, and reflection phases.*
 
 ## Simulation Setup and Execution
@@ -117,7 +117,7 @@ Simulation results, including detailed logs (`.csv`) and a metrics summary (`met
 
 The WoA configuration (default) demonstrates significant improvements in sustainable cooperation compared to the baseline without social memory and inheritance. Key metrics include:
 
-![Performance Improvements](images/comparison_table.png)
+![Performance Improvements](images/comparison_table.png)</br>
 *Table 1: Summary of performance improvements comparing the WoA configuration (with social memory and inheritance) against the baseline.*
 
 As shown in the table, WoA leads to substantial gains, such as a **+4.31 month increase in average Survival Time (+154.1%)** and a **+40.0 percentage point increase in Survival Rate (+466.7%)**, indicating much greater community resilience and sustainability.
