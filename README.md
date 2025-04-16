@@ -19,7 +19,7 @@ The core simulation loop involves agents making individual decisions, discussing
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/theablemo/wisdom-of-ancients.git
+   git clone git@github.com:theablemo/GovSim-WisdomofAncients.git
    cd wisdom-of-ancients
    ```
 
