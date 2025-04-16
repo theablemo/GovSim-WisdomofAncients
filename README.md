@@ -20,15 +20,21 @@ The core simulation loop involves agents making individual decisions, discussing
 1. Clone this repository:
    ```bash
    git clone git@github.com:theablemo/GovSim-WisdomofAncients.git
-   cd wisdom-of-ancients
+   cd GovSim-WisdomofAncients
    ```
 
-2. Install the required packages:
+2.Create a Python venv
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   ```
+
+3. Install the required packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Set up your LLM provider:
+4. Set up your LLM provider:
 
    #### Option 1: Ollama (Local)
    - Install [Ollama](https://ollama.ai/)
