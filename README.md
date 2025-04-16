@@ -23,7 +23,7 @@ The core simulation loop involves agents making individual decisions, discussing
    cd GovSim-WisdomofAncients
    ```
 
-2.Create a Python venv
+2. Create a Python venv
    ```bash
    python -m venv venv
    source venv/bin/activate
